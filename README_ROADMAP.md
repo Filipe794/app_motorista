@@ -187,7 +187,58 @@ lib/
 - [ ] Configuração de notificações
 - [ ] Badges de contagem
 
-### 8. 🗄️ **Persistência de Dados**
+### 8. � **Analytics e Monitoramento**
+```
+lib/
+├── services/
+│   ├── analytics_service.dart ❌
+│   ├── crash_service.dart ❌
+│   └── performance_service.dart ❌
+└── models/
+    └── event_model.dart ❌
+```
+
+**Funcionalidades:**
+- [ ] Rastreamento de eventos
+- [ ] Relatórios de crash
+- [ ] Métricas de performance
+- [ ] Analytics customizados
+- [ ] Monitoramento de uso
+- [ ] Dashboard de métricas
+
+### 9. 📋 **Sistema de Logs e Auditoria (Background)**
+```
+lib/
+├── services/
+│   ├── logging_service.dart ❌
+│   ├── audit_service.dart ❌
+│   └── activity_tracker.dart ❌
+├── models/
+│   ├── log_entry.dart ❌
+│   ├── audit_log.dart ❌
+│   └── user_activity.dart ❌
+└── repositories/
+    └── logs_repository.dart ❌
+```
+
+**Funcionalidades:**
+- [ ] Log de acesso de usuários (background)
+- [ ] Rastreamento de alterações de dados
+- [ ] Histórico de ações do usuário
+- [ ] Log de erros e exceções
+- [ ] Auditoria de segurança
+- [ ] Rotação automática de logs
+- [ ] Log de geolocalização
+- [ ] Sincronização automática com servidor administrativo
+
+**IMPORTANTE:** 
+- Este sistema registra atividades apenas para auditoria administrativa
+- O aplicativo do motorista NÃO possui telas de visualização de logs
+- Todos os logs são enviados automaticamente para o sistema administrativo
+
+---
+
+## 🔧 **Funcionalidades Complementares**
 ```
 lib/
 ├── database/
