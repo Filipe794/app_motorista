@@ -1,3 +1,9 @@
+// TODO: Adicionar foto de perfil do usuário
+// TODO: Implementar notificações em tempo real
+// TODO: Adicionar indicador de status online/offline
+// TODO: Implementar configurações rápidas
+// TODO: Adicionar badge de notificações não lidas
+
 import 'package:flutter/material.dart';
 import '../utils/responsive_helper.dart';
 
@@ -14,6 +20,10 @@ class AppHeader extends StatelessWidget {
   
   /// Callback opcional para ação de logout personalizada
   final VoidCallback? onLogout;
+  
+  // TODO: Adicionar propriedade para foto de perfil
+  // TODO: Adicionar propriedade para status online/offline
+  // TODO: Adicionar propriedade para contador de notificações
   
   const AppHeader({
     super.key, 

@@ -1,18 +1,38 @@
+// TODO: Adicionar roteamento completo do app
+// TODO: Implementar autenticação na inicialização
+// TODO: Adicionar splash screen
+// TODO: Implementar tema escuro/claro
+// TODO: Adicionar configurações de localização
+
 import 'package:flutter/material.dart';
 import 'screens/tela_inicial.dart';
 
+// TODO: Adicionar roteamento completo do app
+// TODO: Implementar autenticação na inicialização
+// TODO: Adicionar splash screen
+// TODO: Implementar tema escuro/claro
+// TODO: Adicionar configurações de localização
+
 void main() {
+  // TODO: Adicionar inicialização do Firebase
+  // TODO: Implementar configurações de crash reporting
+  // TODO: Adicionar configurações de analytics
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // TODO: Implementar hot reload preservando estado
+  // TODO: Adicionar configurações de ambiente (dev/prod)
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'App Motorista',
+      title: 'App Motorista', // TODO: Adicionar localização
       
+      // TODO: Implementar tema personalizado da prefeitura
+      // TODO: Adicionar suporte a tema escuro
       // Tema otimizado para responsividade e acessibilidade
       theme: ThemeData(
         useMaterial3: true,
@@ -45,12 +65,16 @@ class MyApp extends StatelessWidget {
         ),
       ),
       
+      // TODO: Implementar roteamento nomeado
+      // TODO: Adicionar middleware de autenticação
+      // TODO: Implementar deep linking
       // Remove banner de debug
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false, // TODO: Configurar baseado no ambiente
       
+      // TODO: Mudar para SplashScreen quando implementado
       // Tela inicial responsiva
       home: const TelaInicial(
-        userName: 'Motorista', // Nome padrão, pode ser personalizado
+        userName: 'Motorista', // TODO: Buscar nome do usuário logado
       ),
     );
   }
