@@ -4,6 +4,7 @@
 // TODO: Implementar tema escuro/claro
 // TODO: Adicionar configurações de localização
 
+import 'package:app_motorista/screens/chamados/chamados_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'screens/tela_inicial.dart';
 
@@ -73,9 +74,7 @@ class MyApp extends StatelessWidget {
       
       // TODO: Mudar para SplashScreen quando implementado
       // Tela inicial responsiva
-      home: const TelaInicial(
-        userName: 'Motorista', // TODO: Buscar nome do usuário logado
-      ),
+      home: const ChamadosListScreen()
     );
   }
 }
