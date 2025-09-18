@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:app_motorista/utils/responsive_helper.dart';
 
-class ChamadoCard extends StatelessWidget {
+class Chamado_DespesasCard extends StatelessWidget {
   final String id;
   final String titulo;
   final String data;
   final double valor;
   final VoidCallback? onTap;
 
-  const ChamadoCard({
+  const Chamado_DespesasCard({
     super.key,
     required this.id,
     required this.titulo,

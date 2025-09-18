@@ -105,7 +105,7 @@ class _ChamadosListScreenState extends State<ChamadosListScreen> {
                 ),
                   itemBuilder: (context, index) {
                     final chamado = chamados[index]; // pega o mapa do item atual
-                    return ChamadoCard(
+                    return Chamado_DespesasCard(
                       id: chamado["id"],
                       titulo: chamado["titulo"],
                       data: chamado["data"],
@@ -139,7 +139,7 @@ class _ChamadosListScreenState extends State<ChamadosListScreen> {
                       // TODO: Criar novo chamado
                     },
                     child: const Text(
-                      "Adicionar",
+                      "Adicionar chamado",
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),
