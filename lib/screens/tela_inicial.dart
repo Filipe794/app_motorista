@@ -14,6 +14,7 @@ import '../widgets/notices_card.dart';
 /// - Espaçamentos responsivos baseados em porcentagens da tela
 /// - Otimização de performance com widgets otimizados
 /// - Callbacks personalizáveis para navegação
+/// 
 class TelaInicial extends StatelessWidget {
   /// Nome do usuário a ser exibido na saudação
   final String userName;
