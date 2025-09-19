@@ -176,7 +176,7 @@ class _ChamadosListScreenState extends State<ChamadosListScreen> {
 
                   // Dropdown de Categorias
                   SizedBox(
-                    width: 90,
+                    width: MediaQuery.of(context).size.width * 0.22, // Responsive width ~22% of screen
                     child: DropdownButton<String>(
                       isExpanded: true,
                       hint: const Icon(
