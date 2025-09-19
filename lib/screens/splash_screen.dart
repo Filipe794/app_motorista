@@ -1,6 +1,7 @@
 // Splash Screen do App Rota+ com animações e redirecionamento automático
 import 'package:flutter/material.dart';
 import 'login_screen.dart';
+import '../utils/responsive_helper.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -115,114 +116,122 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    final isTablet = context.isTablet;
+    final logoSize = isTablet ? 180.0 : 150.0;
+    final titleFontSize = context.fontSize(isTablet ? 48 : 42);
+    final subtitleFontSize = context.fontSize(isTablet ? 18 : 16);
+    
     return Scaffold(
       backgroundColor: const Color(0xFF1E3A8A), // Azul similar ao logo
       body: Center(
         child: FadeTransition(
           opacity: _fadeAnimation,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Logo principal com animação de escala
-              ScaleTransition(
-                scale: _scaleAnimation,
-                child: Container(
-                  width: 150,
-                  height: 150,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26,
-                        blurRadius: 20,
-                        offset: const Offset(0, 10),
-                      ),
-                    ],
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(20.0),
-                    child: Icon(
-                      Icons.directions_bus,
-                      size: 80,
-                      color: Color(0xFF1E3A8A),
-                    ),
-                  ),
-                ),
-              ),
-              
-              const SizedBox(height: 30),
-              
-              // Nome do app
-              const Text(
-                'Rota+',
-                style: TextStyle(
-                  fontSize: 42,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  letterSpacing: 2,
-                ),
-              ),
-              
-              const SizedBox(height: 12),
-              
-              // Subtítulo
-              const Text(
-                'Gestão de Frota Municipal',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white70,
-                  fontWeight: FontWeight.w300,
-                ),
-              ),
-              
-              const SizedBox(height: 60),
-              
-              // Indicador de carregamento rotativo
-              RotationTransition(
-                turns: _rotationAnimation,
-                child: Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: Colors.white,
-                      width: 3,
-                    ),
-                  ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: context.horizontalPadding),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Logo principal com animação de escala
+                ScaleTransition(
+                  scale: _scaleAnimation,
                   child: Container(
-                    margin: const EdgeInsets.all(8),
-                    decoration: const BoxDecoration(
+                    width: logoSize,
+                    height: logoSize,
+                    decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 20,
+                          offset: const Offset(0, 10),
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(logoSize * 0.13),
+                      child: Icon(
+                        Icons.directions_bus,
+                        size: logoSize * 0.53,
+                        color: const Color(0xFF1E3A8A),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              
-              const SizedBox(height: 20),
-              
-              // Texto de carregamento
-              const Text(
-                'Carregando...',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.white54,
+                
+                SizedBox(height: context.verticalSpacing * 2),
+                
+                // Nome do app
+                Text(
+                  'Rota+',
+                  style: TextStyle(
+                    fontSize: titleFontSize,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    letterSpacing: 2,
+                  ),
                 ),
-              ),
-              
-              const SizedBox(height: 60),
-              
-              // Rodapé com versão
-              const Text(
-                'v1.0.0',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.white38,
+                
+                SizedBox(height: context.verticalSpacing * 0.8),
+                
+                // Subtítulo
+                Text(
+                  'Gestão de Frota Municipal',
+                  style: TextStyle(
+                    fontSize: subtitleFontSize,
+                    color: Colors.white70,
+                    fontWeight: FontWeight.w300,
+                  ),
                 ),
-              ),
-            ],
+                
+                SizedBox(height: context.verticalSpacing * 4),
+                
+                // Indicador de carregamento rotativo
+                RotationTransition(
+                  turns: _rotationAnimation,
+                  child: Container(
+                    width: isTablet ? 50 : 40,
+                    height: isTablet ? 50 : 40,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Colors.white,
+                        width: 3,
+                      ),
+                    ),
+                    child: Container(
+                      margin: const EdgeInsets.all(8),
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                
+                SizedBox(height: context.verticalSpacing * 1.5),
+                
+                // Texto de carregamento
+                Text(
+                  'Carregando...',
+                  style: TextStyle(
+                    fontSize: context.fontSize(14),
+                    color: Colors.white54,
+                  ),
+                ),
+                
+                SizedBox(height: context.verticalSpacing * 4),
+                
+                // Rodapé com versão
+                Text(
+                  'v1.0.0',
+                  style: TextStyle(
+                    fontSize: context.fontSize(12),
+                    color: Colors.white38,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
