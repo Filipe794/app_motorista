@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:device_preview/device_preview.dart';
 import 'screens/tela_inicial.dart';
+import 'screens/splash_screen.dart';
 
 // TODO: Adicionar roteamento completo do app
 // TODO: Implementar autenticação na inicialização
@@ -22,7 +23,7 @@ void main() {
   // TODO: Adicionar configurações de analytics
   runApp(
     DevicePreview(
-      enabled: true, // Ativo apenas em debug/profile
+      enabled: !kReleaseMode, // Ativo apenas em debug/profile
       builder: (context) => const MyApp(),
     ),
   );
@@ -41,14 +42,14 @@ class MyApp extends StatelessWidget {
       locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
       
-      title: 'App Motorista', // TODO: Adicionar localização
+      title: 'Rota+ - App Motorista', // TODO: Adicionar localização
       
       // TODO: Implementar tema personalizado da prefeitura
       // TODO: Adicionar suporte a tema escuro
       // Tema otimizado para responsividade e acessibilidade
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4CAF50)),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF1E3A8A)),
         
         // Configurações de acessibilidade
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -83,9 +84,8 @@ class MyApp extends StatelessWidget {
       // Remove banner de debug
       debugShowCheckedModeBanner: false, // TODO: Configurar baseado no ambiente
       
-      // TODO: Mudar para SplashScreen quando implementado
-      // Tela inicial responsiva
-      home: const ChamadosListScreen()
+      // Splash Screen como tela inicial
+      home: const SplashScreen()
     );
   }
 }
