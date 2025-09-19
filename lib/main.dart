@@ -6,6 +6,8 @@
 
 import 'package:app_motorista/screens/chamados/chamados_list_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:device_preview/device_preview.dart';
 import 'screens/tela_inicial.dart';
 
 // TODO: Adicionar roteamento completo do app
@@ -18,7 +20,12 @@ void main() {
   // TODO: Adicionar inicialização do Firebase
   // TODO: Implementar configurações de crash reporting
   // TODO: Adicionar configurações de analytics
-  runApp(const MyApp());
+  runApp(
+    DevicePreview(
+      enabled: true, // Ativo apenas em debug/profile
+      builder: (context) => const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -30,6 +37,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // Configurações do Device Preview
+      locale: DevicePreview.locale(context),
+      builder: DevicePreview.appBuilder,
+      
       title: 'App Motorista', // TODO: Adicionar localização
       
       // TODO: Implementar tema personalizado da prefeitura

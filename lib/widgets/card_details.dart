@@ -28,21 +28,28 @@ class Chamado_DespesasCard extends StatelessWidget {
         onTap: onTap,
         leading: const Icon(Icons.build, color: Colors.black87),
         title: Text(
-          titulo,
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: context.fontSize(20),
-          ),
-        ),
+    titulo,
+    style: TextStyle(
+        color: const Color(0xFF2C2D33),
+        fontSize: 20,
+        fontFamily: 'Plus Jakarta Sans',
+        fontWeight: FontWeight.w700,
+    ),
+),
         subtitle: Text(
-          "\n$data",
-          style: TextStyle(fontSize: context.fontSize(16)),
-        ),
+          ' $data',
+style: TextStyle(
+color: const Color(0xFF153E42),
+fontSize: 14,
+fontFamily: 'Nunito Sans',
+fontWeight: FontWeight.w700,
+),
+),
         trailing: Text(
           "R\$ ${valor.toStringAsFixed(2)}",
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: context.fontSize(14),
+            fontSize: context.fontSize(20),
           ),
         ),
         isThreeLine: true,
