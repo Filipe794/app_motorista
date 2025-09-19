@@ -1,6 +1,5 @@
 // TODO: Adicionar roteamento completo do app
 // TODO: Implementar autenticação na inicialização
-// TODO: Adicionar splash screen
 // TODO: Implementar tema escuro/claro
 // TODO: Adicionar configurações de localização
 
@@ -10,12 +9,6 @@ import 'package:flutter/foundation.dart';
 import 'package:device_preview/device_preview.dart';
 import 'screens/tela_inicial.dart';
 import 'screens/splash_screen.dart';
-
-// TODO: Adicionar roteamento completo do app
-// TODO: Implementar autenticação na inicialização
-// TODO: Adicionar splash screen
-// TODO: Implementar tema escuro/claro
-// TODO: Adicionar configurações de localização
 
 void main() {
   // TODO: Adicionar inicialização do Firebase

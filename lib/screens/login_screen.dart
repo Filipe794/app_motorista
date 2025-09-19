@@ -245,15 +245,17 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
       body: SafeArea(
         child: FadeTransition(
           opacity: _fadeAnimation,
-          child: SingleChildScrollView(
-            padding: EdgeInsets.all(context.horizontalPadding),
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: context.responsiveHeight(85),
-              ),
-              child: SlideTransition(
-                position: _slideAnimation,
-                child: Column(
+          child: Center(
+            child: SingleChildScrollView(
+              padding: EdgeInsets.all(context.horizontalPadding),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: context.responsiveHeight(85),
+                  maxWidth: context.maxContainerWidth,
+                ),
+                child: SlideTransition(
+                  position: _slideAnimation,
+                  child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // Espaçamento responsivo
@@ -315,16 +317,12 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                     SizedBox(height: context.verticalSpacing * 3),
                     
                     // Card do formulário
-                    Container(
-                      constraints: BoxConstraints(
-                        maxWidth: isTablet ? 400 : double.infinity,
+                    Card(
+                      elevation: 8,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: context.responsiveBorderRadius,
                       ),
-                      child: Card(
-                        elevation: 8,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: context.responsiveBorderRadius,
-                        ),
-                        child: Padding(
+                      child: Padding(
                           padding: EdgeInsets.all(context.horizontalPadding * 1.5),
                           child: Form(
                             key: _formKey,
@@ -510,7 +508,6 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                             ),
                           ),
                         ),
-                      ),
                     ),
                     
                     SizedBox(height: context.verticalSpacing * 3),
@@ -554,6 +551,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                       textAlign: TextAlign.center,
                     ),
                   ],
+                ),
                 ),
               ),
             ),

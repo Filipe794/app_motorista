@@ -34,9 +34,9 @@ class ResponsiveHelper {
     if (width < mobileBreakpoint) {
       return width * 0.05; // 5% da largura em mobile
     } else if (width < tabletBreakpoint) {
-      return width * 0.08; // 8% da largura em tablet
+      return width * 0.06; // 6% da largura em tablet (reduzido para usar mais espaço)
     } else {
-      return width * 0.12; // 12% da largura em desktop
+      return width * 0.08; // 8% da largura em desktop (reduzido)
     }
   }
   
@@ -110,6 +110,18 @@ class ResponsiveHelper {
     
     return BorderRadius.circular(baseBorderRadius * scaleFactor);
   }
+  
+  /// Retorna largura máxima adequada para containers em diferentes dispositivos
+  static double getMaxContainerWidth(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    if (width < mobileBreakpoint) {
+      return double.infinity; // Usar toda largura em mobile
+    } else if (width < tabletBreakpoint) {
+      return width * 0.85; // 85% da largura em tablet (mais espaço que antes)
+    } else {
+      return width * 0.6; // 60% da largura em desktop
+    }
+  }
 }
 
 /// Enum para definir tipos de dispositivos de forma mais semântica
@@ -131,4 +143,6 @@ extension ResponsiveContext on BuildContext {
   double fontSize(double base) => ResponsiveHelper.getFontSize(this, base);
   
   BorderRadius get responsiveBorderRadius => ResponsiveHelper.getResponsiveBorderRadius(this);
+  
+  double get maxContainerWidth => ResponsiveHelper.getMaxContainerWidth(this);
 }
