@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../utils/responsive_helper.dart';
 import 'tela_inicial.dart';
-import 'chamados/chamados_list_screen.dart';
-import 'despesas/despesas_list_screen.dart';
-import 'escalas/escalas_list_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -183,43 +180,6 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                         MaterialPageRoute(builder: (context) => const LoginScreen()),
                         (Route<dynamic> route) => false,
                       );
-                    },
-                    onNavigationTap: (String itemTitle) {
-                      // Navegar para a tela correspondente baseado no título
-                      switch (itemTitle) {
-                        case 'Chamados':
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ChamadosListScreen(),
-                            ),
-                          );
-                          break;
-                        case 'Despesas':
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const DespesasListScreen(),
-                            ),
-                          );
-                          break;
-                        case 'Escalas':
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const EscalasListScreen(),
-                            ),
-                          );
-                          break;
-                        default:
-                          // Exibir snackbar para itens não implementados
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Navegação para "$itemTitle" em desenvolvimento'),
-                              duration: const Duration(seconds: 2),
-                            ),
-                          );
-                      }
                     },
                   ),
               transitionDuration: const Duration(milliseconds: 500),
