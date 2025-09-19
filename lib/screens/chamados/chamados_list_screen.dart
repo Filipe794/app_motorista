@@ -31,9 +31,14 @@ class _ChamadosListScreenState extends State<ChamadosListScreen> {
         backgroundColor: Colors.white,
         leading: const BackButton(),
         title: Text(
-          "Chamados",
-          style: TextStyle(fontSize: context.fontSize(25), color: Colors.black,fontWeight: FontWeight.bold),
-        ),
+'Chamados',
+style: TextStyle(
+color: Colors.black,
+fontSize: 20,
+fontFamily: 'Plus Jakarta Sans',
+fontWeight: FontWeight.w700,
+),
+),
         centerTitle: true,
         elevation: 0,
       ),
