@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false, // TODO: Configurar baseado no ambiente
       
       // Splash Screen como tela inicial
-      home: const SplashScreen()
+      home: const TelaInicial(userName: "Filipe",)
     );
   }
 }

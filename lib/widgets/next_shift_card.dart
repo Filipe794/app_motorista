@@ -117,7 +117,7 @@ class _MainShiftCard extends StatelessWidget {
           // Sombra sutil para dar profundidade
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withAlpha(13), // 0.05 * 255 = ~13
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 8.0,
               offset: const Offset(0, 3),
             ),
@@ -159,23 +159,70 @@ class _ResponsiveMapSection extends StatelessWidget {
             topLeft: context.responsiveBorderRadius.topLeft,
             topRight: context.responsiveBorderRadius.topRight,
           ),
-          gradient: const LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xFF81C784),
-              Color(0xFF4CAF50),
-            ],
-          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.1),
+              blurRadius: 8.0,
+              offset: const Offset(0, 2),
+            ),
+          ],
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.only(
             topLeft: context.responsiveBorderRadius.topLeft,
             topRight: context.responsiveBorderRadius.topRight,
           ),
-          child: _MapContent(
-            mapHeight: mapHeight,
-            availableWidth: availableWidth,
+          child: Image.asset(
+            'assets/images/mapa.png',
+            width: double.infinity,
+            height: mapHeight,
+            fit: BoxFit.cover,
+            semanticLabel: 'Mapa da rota Centro - Antenor Viana',
+            errorBuilder: (context, error, stackTrace) {
+              // Fallback em caso de erro ao carregar a imagem
+              return Container(
+                height: mapHeight,
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Color(0xFF81C784),
+                      Color(0xFF4CAF50),
+                    ],
+                  ),
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.map_outlined,
+                        size: context.isMobile ? 40 : 48,
+                        color: Colors.white.withValues(alpha: 0.8),
+                      ),
+                      SizedBox(height: context.verticalSpacing * 0.5),
+                      Text(
+                        'Mapa da Rota',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: context.fontSize(16),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Text(
+                        'Centro - Antenor Viana',
+                        style: TextStyle(
+                          color: Colors.white.withValues(alpha: 0.9),
+                          fontSize: context.fontSize(12),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
           ),
         ),
       ),
@@ -191,129 +238,6 @@ class _ResponsiveMapSection extends StatelessWidget {
     } else {
       return context.responsiveHeight(22); // 22% da altura da tela
     }
-  }
-}
-
-/// Conteúdo visual do mapa com pontos e rotas
-class _MapContent extends StatelessWidget {
-  final double mapHeight;
-  final double availableWidth;
-  
-  const _MapContent({
-    required this.mapHeight,
-    required this.availableWidth,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        // Pontos da rota posicionados responsivamente
-        ..._buildMapPoints(context),
-        
-        // Linha da rota
-        Positioned.fill(
-          child: CustomPaint(
-            painter: _ResponsiveRoutePainter(
-              screenWidth: availableWidth,
-              screenHeight: mapHeight,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  /// Constrói os pontos do mapa de forma responsiva
-  List<Widget> _buildMapPoints(BuildContext context) {
-    final pointSize = context.isMobile ? 10.0 : 
-                     context.isTablet ? 12.0 : 14.0;
-    
-    return [
-      // Ponto inicial (verde)
-      Positioned(
-        top: mapHeight * 0.2,
-        left: availableWidth * 0.1,
-        child: _MapPoint(
-          isStart: true,
-          size: pointSize,
-        ),
-      ),
-      
-      // Ponto intermediário 1
-      Positioned(
-        top: mapHeight * 0.4,
-        right: availableWidth * 0.15,
-        child: _MapPoint(size: pointSize),
-      ),
-      
-      // Ponto intermediário 2
-      Positioned(
-        bottom: mapHeight * 0.35,
-        left: availableWidth * 0.2,
-        child: _MapPoint(size: pointSize),
-      ),
-      
-      // Ponto final (vermelho)
-      Positioned(
-        bottom: mapHeight * 0.15,
-        right: availableWidth * 0.1,
-        child: _MapPoint(
-          isEnd: true,
-          size: pointSize,
-        ),
-      ),
-    ];
-  }
-}
-
-/// Ponto individual no mapa
-class _MapPoint extends StatelessWidget {
-  final bool isStart;
-  final bool isEnd;
-  final double size;
-
-  const _MapPoint({
-    this.isStart = false,
-    this.isEnd = false,
-    required this.size,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    Color color = Colors.white;
-    String semanticLabel = 'Ponto da rota';
-    
-    if (isStart) {
-      color = Colors.green;
-      semanticLabel = 'Ponto de partida';
-    } else if (isEnd) {
-      color = Colors.red;
-      semanticLabel = 'Ponto de chegada';
-    }
-
-    return Semantics(
-      label: semanticLabel,
-      child: Container(
-        width: size,
-        height: size,
-        decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: Colors.white,
-            width: size * 0.15,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withAlpha(77), // 0.3 * 255 = ~77
-              blurRadius: size * 0.3,
-              offset: Offset(0, size * 0.15),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }
 
@@ -516,7 +440,7 @@ class _ResponsiveShiftDetailsModal extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withAlpha(26), // 0.1 * 255 = ~26
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, -5),
           ),
@@ -668,62 +592,4 @@ class _DetailRow extends StatelessWidget {
       ),
     );
   }
-}
-
-/// Painter responsivo para desenhar a rota no mapa
-class _ResponsiveRoutePainter extends CustomPainter {
-  final double screenWidth;
-  final double screenHeight;
-  
-  _ResponsiveRoutePainter({
-    required this.screenWidth,
-    required this.screenHeight,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Colors.white.withAlpha(204) // 0.8 * 255 = 204
-      ..strokeWidth = screenWidth < 600 ? 2.0 : 3.0
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round;
-
-    final path = Path();
-    
-    // Pontos calculados responsivamente
-    final startX = size.width * 0.1;
-    final startY = size.height * 0.2;
-    final midX1 = size.width * 0.85;
-    final midY1 = size.height * 0.4;
-    final midX2 = size.width * 0.2;
-    final midY2 = size.height * 0.65;
-    final endX = size.width * 0.9;
-    final endY = size.height * 0.85;
-    
-    // Desenha a rota com curvas suaves
-    path.moveTo(startX, startY);
-    path.quadraticBezierTo(
-      size.width * 0.4, 
-      size.height * 0.3, 
-      midX1, 
-      midY1,
-    );
-    path.quadraticBezierTo(
-      size.width * 0.5, 
-      size.height * 0.6, 
-      midX2, 
-      midY2,
-    );
-    path.quadraticBezierTo(
-      size.width * 0.6, 
-      size.height * 0.75, 
-      endX, 
-      endY,
-    );
-
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
