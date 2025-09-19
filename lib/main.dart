@@ -4,7 +4,7 @@
 // TODO: Implementar tema escuro/claro
 // TODO: Adicionar configurações de localização
 
-import 'package:app_motorista/screens/chamados/chamados_list_screen.dart';
+import 'package:rota_mais/screens/chamados/chamados_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:device_preview/device_preview.dart';

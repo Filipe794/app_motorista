@@ -1,6 +1,6 @@
-import 'package:app_motorista/widgets/card_details.dart';
+import 'package:rota_mais/widgets/card_details.dart';
 import 'package:flutter/material.dart';
-import 'package:app_motorista/utils/responsive_helper.dart';
+import 'package:rota_mais/utils/responsive_helper.dart';
 
 class ChamadosListScreen extends StatefulWidget {
   const ChamadosListScreen({super.key});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:app_motorista/utils/responsive_helper.dart';
+import 'package:rota_mais/utils/responsive_helper.dart';
 
 class Chamado_DespesasCard extends StatelessWidget {
   final String id;
