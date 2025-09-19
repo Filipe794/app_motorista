@@ -188,7 +188,7 @@ class _MainNoticeCardState extends State<_MainNoticeCard>
             // Sombra sutil para dar profundidade
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFFE4B029).withOpacity(0.1),
+                color: const Color(0xFFE4B029).withAlpha(26), // 0.1 * 255 = ~26
                 blurRadius: 6.0,
                 offset: const Offset(0, 3),
               ),
@@ -260,13 +260,13 @@ class _NoticeTypeBadge extends StatelessWidget {
           vertical: context.verticalSpacing * 0.3,
         ),
         decoration: BoxDecoration(
-          color: const Color(0xFFE4B029).withOpacity(0.2),
+          color: const Color(0xFFE4B029).withAlpha(51), // 0.2 * 255 = 51
           borderRadius: BorderRadius.circular(
             context.isMobile ? 8.0 : 
             context.isTablet ? 10.0 : 12.0,
           ),
           border: Border.all(
-            color: const Color(0xFFE4B029).withOpacity(0.3),
+            color: const Color(0xFFE4B029).withAlpha(77), // 0.3 * 255 = ~77
             width: 0.5,
           ),
         ),

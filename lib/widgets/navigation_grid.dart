@@ -233,7 +233,7 @@ class _NavigationCardState extends State<_NavigationCard>
             // Sombra sutil para dar profundidade
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: Colors.black.withAlpha(13), // 0.05 * 255 = ~13
                 blurRadius: 4.0,
                 offset: const Offset(0, 2),
               ),
@@ -338,11 +338,11 @@ class _IconContainer extends StatelessWidget {
           width: containerSize,
           height: containerSize,
           decoration: BoxDecoration(
-            color: item.color.withOpacity(0.1),
+            color: item.color.withAlpha(26), // 0.1 * 255 = ~26
             borderRadius: BorderRadius.circular(containerSize * 0.2),
             // Borda sutil na cor do item
             border: Border.all(
-              color: item.color.withOpacity(0.2),
+              color: item.color.withAlpha(51), // 0.2 * 255 = 51
               width: 1.0,
             ),
           ),

@@ -117,7 +117,7 @@ class _MainShiftCard extends StatelessWidget {
           // Sombra sutil para dar profundidade
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withAlpha(13), // 0.05 * 255 = ~13
               blurRadius: 8.0,
               offset: const Offset(0, 3),
             ),
@@ -306,7 +306,7 @@ class _MapPoint extends StatelessWidget {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.3),
+              color: Colors.black.withAlpha(77), // 0.3 * 255 = ~77
               blurRadius: size * 0.3,
               offset: Offset(0, size * 0.15),
             ),
@@ -516,7 +516,7 @@ class _ResponsiveShiftDetailsModal extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withAlpha(26), // 0.1 * 255 = ~26
             blurRadius: 10,
             offset: const Offset(0, -5),
           ),
@@ -683,7 +683,7 @@ class _ResponsiveRoutePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.white.withOpacity(0.8)
+      ..color = Colors.white.withAlpha(204) // 0.8 * 255 = 204
       ..strokeWidth = screenWidth < 600 ? 2.0 : 3.0
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
