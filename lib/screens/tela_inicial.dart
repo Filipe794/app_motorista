@@ -4,6 +4,7 @@ import '../widgets/app_header.dart';
 import '../widgets/navigation_grid.dart';
 import '../widgets/next_shift_card.dart';
 import '../widgets/notices_card.dart';
+import 'package:rota_mais/screens/chamados/chamados_list_screen.dart';
 
 /// Tela inicial totalmente responsiva e acessível do aplicativo do motorista
 /// 

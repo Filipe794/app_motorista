@@ -6,6 +6,7 @@
 // TODO: Adicionar FAB para nova despesa
 
 import 'package:flutter/material.dart';
+import '../../utils/responsive_helper.dart';
 
 class DespesasListScreen extends StatefulWidget {
   const DespesasListScreen({super.key});
@@ -21,10 +22,69 @@ class _DespesasListScreenState extends State<DespesasListScreen> {
   
   @override
   Widget build(BuildContext context) {
-    // TODO: Implementar UI da lista de despesas
-    return const Scaffold(
-      body: Center(
-        child: Text('Despesas List Screen - TODO'),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: const Text(
+          'Despesas',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: const Color(0xFF1E3A8A),
+        foregroundColor: Colors.white,
+        elevation: 2,
+        centerTitle: true,
+      ),
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.all(context.horizontalPadding),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.receipt_long,
+                  size: context.isTablet ? 80 : 64,
+                  color: const Color(0xFF2196F3),
+                ),
+                SizedBox(height: context.verticalSpacing),
+                Text(
+                  'Lista de Despesas',
+                  style: TextStyle(
+                    fontSize: context.fontSize(context.isTablet ? 24 : 20),
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xFF1E3A8A),
+                  ),
+                ),
+                SizedBox(height: context.verticalSpacing * 0.5),
+                Text(
+                  'Funcionalidade em desenvolvimento',
+                  style: TextStyle(
+                    fontSize: context.fontSize(16),
+                    color: Colors.grey[600],
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: context.verticalSpacing * 2),
+                ElevatedButton.icon(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(Icons.arrow_back),
+                  label: const Text('Voltar'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF1E3A8A),
+                    foregroundColor: Colors.white,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: context.horizontalPadding,
+                      vertical: 12,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

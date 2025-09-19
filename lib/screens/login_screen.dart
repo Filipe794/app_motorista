@@ -2,7 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../utils/responsive_helper.dart';
+import 'tela_inicial.dart';
 import 'chamados/chamados_list_screen.dart';
+import 'despesas/despesas_list_screen.dart';
+import 'escalas/escalas_list_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -164,11 +167,61 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
         // }
         
         if (mounted) {
-          Navigator.pushReplacement(
+          // Extrair nome do motorista do CPF ou usar um nome padrão
+          final cpfSemFormatacao = _cpfController.text.replaceAll(RegExp(r'[^0-9]'), '');
+          final nomeMotorista = 'Motorista ${cpfSemFormatacao.substring(0, 3)}***';
+          
+          Navigator.pushAndRemoveUntil(
             context,
             PageRouteBuilder(
               pageBuilder: (context, animation, secondaryAnimation) => 
-                  const ChamadosListScreen(),
+                  TelaInicial(
+                    userName: nomeMotorista,
+                    onLogout: () {
+                      // Voltar para a tela de login
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => const LoginScreen()),
+                        (Route<dynamic> route) => false,
+                      );
+                    },
+                    onNavigationTap: (String itemTitle) {
+                      // Navegar para a tela correspondente baseado no título
+                      switch (itemTitle) {
+                        case 'Chamados':
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ChamadosListScreen(),
+                            ),
+                          );
+                          break;
+                        case 'Despesas':
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const DespesasListScreen(),
+                            ),
+                          );
+                          break;
+                        case 'Escalas':
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const EscalasListScreen(),
+                            ),
+                          );
+                          break;
+                        default:
+                          // Exibir snackbar para itens não implementados
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Navegação para "$itemTitle" em desenvolvimento'),
+                              duration: const Duration(seconds: 2),
+                            ),
+                          );
+                      }
+                    },
+                  ),
               transitionDuration: const Duration(milliseconds: 500),
               transitionsBuilder: (context, animation, secondaryAnimation, child) {
                 return FadeTransition(
@@ -183,6 +236,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                 );
               },
             ),
+            (Route<dynamic> route) => false, // Remove todas as rotas anteriores
           );
         }
       }
