@@ -263,7 +263,7 @@ lib/
 - [ ] Backup/Restore
 - [ ] Migrations automáticos
 
-### 9. 🌐 **Conectividade e API**
+### 10. 🌐 **Conectividade e API**
 ```
 lib/
 ├── api/
@@ -285,7 +285,7 @@ lib/
 - [ ] Retry automático
 - [ ] Detecção de conectividade
 
-### 10. 🧪 **Testes e Qualidade**
+### 11. 🧪 **Testes e Qualidade**
 ```
 test/
 ├── unit/

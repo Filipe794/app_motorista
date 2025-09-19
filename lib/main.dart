@@ -4,6 +4,7 @@
 // TODO: Implementar tema escuro/claro
 // TODO: Adicionar configurações de localização
 
+import 'package:app_motorista/screens/chamados/chamados_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'screens/tela_inicial.dart';
 
@@ -17,12 +18,11 @@ void main() {
   // TODO: Adicionar inicialização do Firebase
   // TODO: Implementar configurações de crash reporting
   // TODO: Adicionar configurações de analytics
-  // TODO: Configurar ambiente (dev/prod)
-  runApp(const AppMotorista());
+  runApp(const MyApp());
 }
 
-class AppMotorista extends StatelessWidget {
-  const AppMotorista({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   // TODO: Implementar hot reload preservando estado
   // TODO: Adicionar configurações de ambiente (dev/prod)
@@ -30,38 +30,34 @@ class AppMotorista extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'App Motorista - Prefeitura', // TODO: Adicionar localização
+      title: 'App Motorista', // TODO: Adicionar localização
       
       // TODO: Implementar tema personalizado da prefeitura
+      // TODO: Adicionar suporte a tema escuro
       // Tema otimizado para responsividade e acessibilidade
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF2E7D32), // Verde institucional
-        ),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4CAF50)),
         
         // Configurações de acessibilidade
         visualDensity: VisualDensity.adaptivePlatformDensity,
         
-        // AppBar tema responsivo
+        // AppBar theme responsivo
         appBarTheme: const AppBarTheme(
           centerTitle: true,
           elevation: 0,
           scrolledUnderElevation: 1,
         ),
         
-        // Botões otimizados para toque
+        // Tema de botões otimizado para toque
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            minimumSize: const Size(44, 44), // Acessibilidade
+            minimumSize: const Size(44, 44), // Tamanho mínimo para acessibilidade
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
           ),
         ),
         
-        // Cards responsivos
+        // Tema de cards responsivo
         cardTheme: const CardThemeData(
           elevation: 2,
           shape: RoundedRectangleBorder(
@@ -70,17 +66,15 @@ class AppMotorista extends StatelessWidget {
         ),
       ),
       
-      // TODO: Implementar tema escuro
-      // TODO: Adicionar roteamento nomeado
-      // TODO: Implementar middleware de autenticação
-      // TODO: Adicionar deep linking
+      // TODO: Implementar roteamento nomeado
+      // TODO: Adicionar middleware de autenticação
+      // TODO: Implementar deep linking
+      // Remove banner de debug
+      debugShowCheckedModeBanner: false, // TODO: Configurar baseado no ambiente
       
-      debugShowCheckedModeBanner: false,
-      
-      // TODO: Implementar splash screen e autenticação
-      home: const TelaInicial(
-        userName: 'Motorista', // TODO: Buscar do usuário autenticado
-      ),
+      // TODO: Mudar para SplashScreen quando implementado
+      // Tela inicial responsiva
+      home: const ChamadosListScreen()
     );
   }
 }
