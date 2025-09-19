@@ -1,7 +1,6 @@
 // Tela de recuperação de senha do App Rota+ 
 // Permite que o motorista solicite recuperação de senha via email
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import '../utils/responsive_helper.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {

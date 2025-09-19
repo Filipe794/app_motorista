@@ -76,22 +76,37 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
     // }
   }
 
-  String _formatCpf(String cpf) {
-    // Remove tudo que não é número
-    cpf = cpf.replaceAll(RegExp(r'[^0-9]'), '');
+  /// Formatter customizado para CPF que preserva a posição do cursor
+  TextEditingValue _cpfFormatter(TextEditingValue oldValue, TextEditingValue newValue) {
+    // Remove tudo que não é número do novo valor
+    final newText = newValue.text.replaceAll(RegExp(r'[^0-9]'), '');
     
-    // Aplica a formatação XXX.XXX.XXX-XX
-    if (cpf.length > 3) {
-      cpf = '${cpf.substring(0, 3)}.${cpf.substring(3)}';
-    }
-    if (cpf.length > 7) {
-      cpf = '${cpf.substring(0, 7)}.${cpf.substring(7)}';
-    }
-    if (cpf.length > 11) {
-      cpf = '${cpf.substring(0, 11)}-${cpf.substring(11)}';
+    // Limita a 11 dígitos
+    final limitedText = newText.length > 11 ? newText.substring(0, 11) : newText;
+    
+    // Aplica a formatação
+    String formattedText = '';
+    for (int i = 0; i < limitedText.length; i++) {
+      if (i == 3 || i == 6) {
+        formattedText += '.';
+      } else if (i == 9) {
+        formattedText += '-';
+      }
+      formattedText += limitedText[i];
     }
     
-    return cpf;
+    // Calcula a nova posição do cursor de forma mais simples
+    int newCursorPosition = formattedText.length;
+    
+    // Se o usuário está digitando, mantém o cursor no final
+    if (newValue.selection.baseOffset <= newValue.text.length) {
+      newCursorPosition = formattedText.length;
+    }
+    
+    return TextEditingValue(
+      text: formattedText,
+      selection: TextSelection.collapsed(offset: newCursorPosition),
+    );
   }
 
   bool _validateCpf(String cpf) {
@@ -347,13 +362,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                                   controller: _cpfController,
                                   keyboardType: TextInputType.number,
                                   inputFormatters: [
-                                    FilteringTextInputFormatter.digitsOnly,
-                                    LengthLimitingTextInputFormatter(11),
-                                    TextInputFormatter.withFunction((oldValue, newValue) {
-                                      return newValue.copyWith(
-                                        text: _formatCpf(newValue.text),
-                                      );
-                                    }),
+                                    TextInputFormatter.withFunction(_cpfFormatter),
                                   ],
                                   decoration: InputDecoration(
                                     labelText: 'CPF do Motorista',

@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:device_preview/device_preview.dart';
 import 'screens/tela_inicial.dart';
 import 'screens/splash_screen.dart';
+import 'screens/login_screen.dart';
 
 void main() {
   // TODO: Adicionar inicialização do Firebase
@@ -78,7 +79,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false, // TODO: Configurar baseado no ambiente
       
       // Splash Screen como tela inicial
-      home: const TelaInicial(userName: "Filipe",)
+      home: const SplashScreen(),
     );
   }
 }
