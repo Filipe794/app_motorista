@@ -4,7 +4,9 @@ import '../widgets/app_header.dart';
 import '../widgets/navigation_grid.dart';
 import '../widgets/next_shift_card.dart';
 import '../widgets/notices_card.dart';
-import 'package:rota_mais/screens/chamados/chamados_list_screen.dart';
+import 'chamados/chamados_list_screen.dart';
+import 'despesas/despesas_list_screen.dart';
+import 'escalas/escalas_list_screen.dart';
 
 /// Tela inicial totalmente responsiva e acessível do aplicativo do motorista
 /// 
@@ -41,6 +43,51 @@ class TelaInicial extends StatelessWidget {
     this.onNoticeTap,
   });
 
+  /// Método para gerenciar navegação interna
+  void _handleNavigation(BuildContext context, String itemTitle) {
+    // Se existe um callback personalizado, usa ele
+    if (onNavigationTap != null) {
+      onNavigationTap!(itemTitle);
+      return;
+    }
+    
+    // Caso contrário, implementa navegação padrão
+    switch (itemTitle) {
+      case 'Chamados':
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const ChamadosListScreen(),
+          ),
+        );
+        break;
+      case 'Despesas':
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const DespesasListScreen(),
+          ),
+        );
+        break;
+      case 'Escalas':
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const EscalasListScreen(),
+          ),
+        );
+        break;
+      default:
+        // Exibir snackbar para itens não implementados
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Navegação para "$itemTitle" em desenvolvimento'),
+            duration: const Duration(seconds: 2),
+          ),
+        );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +98,7 @@ class TelaInicial extends StatelessWidget {
             return _ResponsiveMainContent(
               userName: userName,
               onLogout: onLogout,
-              onNavigationTap: onNavigationTap,
+              onNavigationTap: (title) => _handleNavigation(context, title),
               onShiftTap: onShiftTap,
               onNoticeTap: onNoticeTap,
               screenConstraints: constraints,
@@ -156,7 +203,24 @@ class _ResponsiveMainContent extends StatelessWidget {
               // Próxima escala (60% da largura)
               Expanded(
                 flex: 6,
-                child: NextShiftCard(onShiftTap: onShiftTap),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Título da próxima escala
+                    Text(
+                      'Próxima escala',
+                      style: TextStyle(
+                        fontSize: context.fontSize(context.isTablet ? 16 : 14),
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    
+                    SizedBox(height: context.verticalSpacing),
+                    
+                    NextShiftCard(onShiftTap: onShiftTap),
+                  ],
+                ),
               ),
               
               SizedBox(width: context.cardSpacing),
@@ -198,6 +262,18 @@ class _ResponsiveMainContent extends StatelessWidget {
           
           SizedBox(height: context.verticalSpacing * 1.2),
           
+          // Título da próxima escala
+          Text(
+            'Próxima escala',
+            style: TextStyle(
+              fontSize: context.fontSize(context.isTablet ? 16 : 14),
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+            ),
+          ),
+          
+          SizedBox(height: context.verticalSpacing),
+          
           // Card da próxima escala
           NextShiftCard(onShiftTap: onShiftTap),
           
@@ -233,6 +309,18 @@ class _ResponsiveMainContent extends StatelessWidget {
           NavigationGrid(onNavigationTap: onNavigationTap),
           
           SizedBox(height: context.verticalSpacing * 1.5),
+          
+          // Título da próxima escala
+          Text(
+            'Próxima escala',
+            style: TextStyle(
+              fontSize: context.fontSize(context.isTablet ? 16 : 14),
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+            ),
+          ),
+          
+          SizedBox(height: context.verticalSpacing),
           
           // Card da próxima escala
           NextShiftCard(onShiftTap: onShiftTap),

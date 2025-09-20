@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../utils/responsive_helper.dart';
+import '../screens/escalas/escala_details_screen.dart';
 
 /// Widget de card da próxima escala totalmente responsivo e acessível
 /// 
@@ -45,47 +46,9 @@ class _ResponsiveShiftCardContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Semantics(
       label: 'Card da próxima escala de trabalho',
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Título da seção
-          _SectionTitle(context: context),
-          
-          SizedBox(height: context.verticalSpacing),
-          
-          // Card principal com mapa e informações
-          _MainShiftCard(
-            onShiftTap: onShiftTap,
-            availableWidth: availableWidth,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// Título da seção responsivo
-class _SectionTitle extends StatelessWidget {
-  final BuildContext context;
-  
-  const _SectionTitle({required this.context});
-
-  @override
-  Widget build(BuildContext context) {
-    final baseFontSize = context.isMobile ? 14.0 : 
-                        context.isTablet ? 16.0 : 18.0;
-    
-    return Semantics(
-      label: 'Seção próxima escala',
-      child: Text(
-        'Próxima escala',
-        style: TextStyle(
-          fontSize: context.fontSize(baseFontSize),
-          fontWeight: FontWeight.bold,
-          color: Colors.black87,
-          height: 1.2,
-        ),
+      child: _MainShiftCard(
+        onShiftTap: onShiftTap,
+        availableWidth: availableWidth,
       ),
     );
   }
@@ -404,190 +367,17 @@ class _ActionButton extends StatelessWidget {
     if (onShiftTap != null) {
       onShiftTap!();
     } else {
-      _showShiftDetails(context);
+      _navigateToShiftDetails(context);
     }
   }
 
-  /// Exibe modal com detalhes da escala
-  void _showShiftDetails(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      enableDrag: true,
-      builder: (context) => _ResponsiveShiftDetailsModal(),
-    );
-  }
-}
-
-/// Modal responsivo com detalhes da escala
-class _ResponsiveShiftDetailsModal extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final modalHeight = context.isMobile 
-        ? context.responsiveHeight(70)
-        : context.isTablet 
-            ? context.responsiveHeight(60)
-            : context.responsiveHeight(50);
-    
-    return Container(
-      height: modalHeight,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.1),
-            blurRadius: 10,
-            offset: const Offset(0, -5),
-          ),
-        ],
-      ),
-      child: Semantics(
-        label: 'Modal com detalhes completos da escala',
-        child: Padding(
-          padding: EdgeInsets.all(context.horizontalPadding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Indicador visual do modal
-              _ModalHandle(),
-              
-              SizedBox(height: context.verticalSpacing),
-              
-              // Título do modal
-              _ModalTitle(),
-              
-              SizedBox(height: context.verticalSpacing * 1.5),
-              
-              // Lista de detalhes
-              Expanded(
-                child: _DetailsList(),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/// Handle visual do modal
-class _ModalHandle extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        width: 40,
-        height: 4,
-        decoration: BoxDecoration(
-          color: Colors.grey[300],
-          borderRadius: BorderRadius.circular(2),
-        ),
-      ),
-    );
-  }
-}
-
-/// Título do modal
-class _ModalTitle extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final baseFontSize = context.isMobile ? 20.0 : 
-                        context.isTablet ? 22.0 : 24.0;
-    
-    return Text(
-      'Detalhes da Escala',
-      style: TextStyle(
-        fontSize: context.fontSize(baseFontSize),
-        fontWeight: FontWeight.bold,
-        color: Colors.black87,
-        height: 1.2,
-      ),
-    );
-  }
-}
-
-/// Lista de detalhes da escala
-class _DetailsList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final details = [
-      ('Rota:', 'Centro - Antenor Viana'),
-      ('Paradas:', '4 paradas'),
-      ('Horário:', '14:30 - 18:30'),
-      ('Veículo:', 'Ônibus 1234'),
-      ('Status:', 'Agendado'),
-    ];
-    
-    return SingleChildScrollView(
-      child: Column(
-        children: details.map((detail) {
-          return _DetailRow(
-            label: detail.$1,
-            value: detail.$2,
-          );
-        }).toList(),
-      ),
-    );
-  }
-}
-
-/// Linha individual de detalhe
-class _DetailRow extends StatelessWidget {
-  final String label;
-  final String value;
-  
-  const _DetailRow({
-    required this.label,
-    required this.value,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final baseFontSize = context.isMobile ? 14.0 : 
-                        context.isTablet ? 15.0 : 16.0;
-    
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: context.verticalSpacing * 0.5),
-      child: Semantics(
-        label: '$label $value',
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Label com largura flexível
-            Flexible(
-              flex: 2,
-              child: Text(
-                label,
-                style: TextStyle(
-                  fontSize: context.fontSize(baseFontSize),
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey[600],
-                  height: 1.4,
-                ),
-              ),
-            ),
-            
-            SizedBox(width: context.cardSpacing),
-            
-            // Valor com largura flexível
-            Expanded(
-              flex: 3,
-              child: Text(
-                value,
-                style: TextStyle(
-                  fontSize: context.fontSize(baseFontSize),
-                  color: Colors.black87,
-                  height: 1.4,
-                ),
-              ),
-            ),
-          ],
+  /// Navega para a tela de detalhes da escala
+  void _navigateToShiftDetails(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const EscalaDetailsScreen(
+          escalaId: '1', // ID da escala padrão para o card da próxima escala
         ),
       ),
     );
