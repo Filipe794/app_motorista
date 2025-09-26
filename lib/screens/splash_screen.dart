@@ -117,7 +117,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     final isTablet = context.isTablet;
-    final logoSize = isTablet ? 180.0 : 150.0;
+    final logoSize = isTablet ? 180.0 : 150.0; 
     final titleFontSize = context.fontSize(isTablet ? 48 : 42);
     final subtitleFontSize = context.fontSize(isTablet ? 18 : 16);
     

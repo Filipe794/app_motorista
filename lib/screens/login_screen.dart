@@ -191,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ChamadosListScreen(),
+                              builder: (context) => ChamadosListScreen(userName: nomeMotorista,),
                             ),
                           );
                           break;
@@ -199,7 +199,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const DespesasListScreen(),
+                              builder: (context) => DespesasListScreen(userName: nomeMotorista,),
                             ),
                           );
                           break;

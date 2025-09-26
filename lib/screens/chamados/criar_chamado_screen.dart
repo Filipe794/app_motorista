@@ -1,16 +1,10 @@
-// TODO: Implementar formulário de novo chamado
-// TODO: Adicionar seleção de tipo/categoria
-// TODO: Implementar upload de anexos
-// TODO: Adicionar seleção de prioridade
-// TODO: Implementar validação de campos
-// TODO: Adicionar campo de descrição detalhada
-
 import 'package:flutter/material.dart';
-
-import 'package:rota_mais/utils/responsive_helper.dart';
+import 'package:rota_mais/screens/chamados/descricao_chamado.dart';
 
 class CriarChamadoScreen extends StatefulWidget {
-  const CriarChamadoScreen({super.key});
+  final String userName; // <-- recebe o nome do motorista
+
+  const CriarChamadoScreen({super.key, required this.userName});
 
   @override
   State<CriarChamadoScreen> createState() => _CriarChamadoScreenState();
@@ -24,45 +18,46 @@ class _CriarChamadoScreenState extends State<CriarChamadoScreen> {
       'nome': 'Reparos',
       'icone': Icons.build,
       'cor': Colors.blue,
-      'descricao': 'Manutenções e consertos'
+      'descricao': 'Manutenções e consertos',
     },
     {
       'nome': 'Problemas na Rota',
       'icone': Icons.route,
       'cor': Colors.orange,
-      'descricao': 'Desvios e bloqueios'
+      'descricao': 'Desvios e bloqueios',
     },
     {
       'nome': 'Acidente',
       'icone': Icons.car_crash,
       'cor': Colors.red,
-      'descricao': 'Colisões e incidentes'
+      'descricao': 'Colisões e incidentes',
     },
     {
       'nome': 'Climatização',
       'icone': Icons.ac_unit,
       'cor': Colors.lightBlue,
-      'descricao': 'Ar condicionado'
+      'descricao': 'Ar condicionado',
     },
     {
       'nome': 'Freios',
       'icone': Icons.do_not_step,
       'cor': Colors.purple,
-      'descricao': 'Sistema de frenagem'
+      'descricao': 'Sistema de frenagem',
     },
   ];
-  
+
   @override
   Widget build(BuildContext context) {
-    // TODO: Implementar UI do formulário de chamado
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: const BackButton(),
+        backgroundColor: const Color(0xFF1E3A8A),
+        leading: const BackButton(
+          color: Colors.white,
+        ),
         title: const Text(
           'Criar Chamado',
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
             fontSize: 20,
             fontFamily: 'Plus Jakarta Sans',
             fontWeight: FontWeight.w700,
@@ -72,91 +67,152 @@ class _CriarChamadoScreenState extends State<CriarChamadoScreen> {
         elevation: 0,
       ),
       body: Container(
-        color: Colors.grey[100],
+        color: Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(16),
+            const Padding(
+              padding: EdgeInsets.all(16),
               child: Text(
                 'Selecione a categoria do chamado:',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
-                  color: Colors.grey[800],
+                  color: Colors.black87,
                 ),
               ),
             ),
+
+            // Lista de categorias
             Expanded(
-              child: GridView.builder(
-                padding: const EdgeInsets.all(16),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 1.1,
-                  crossAxisSpacing: 12,
-                  mainAxisSpacing: 12,
-                ),
+              child: ListView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 itemCount: categorias.length,
                 itemBuilder: (context, index) {
                   final categoria = categorias[index];
                   final isSelected = categoria['nome'] == categoriaSelecionada;
-                  
-                  return InkWell(
-                    onTap: () {
-                      setState(() {
-                        categoriaSelecionada = categoria['nome'];
-                      });
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: isSelected ? categoria['cor'] : Colors.grey[300]!,
-                          width: isSelected ? 2 : 1,
+
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          categoriaSelecionada = categoria['nome'];
+                        });
+                      },
+                      borderRadius: BorderRadius.circular(12),
+                      child: Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: isSelected
+                                ? const Color(0xFF1E3A8A)
+                                : Colors.grey.withAlpha(51),
+                            width: isSelected ? 2 : 1,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withAlpha(13),
+                              blurRadius: 4,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
                         ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withAlpha(13), // 0.05 * 255 = ~13
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            categoria['icone'],
-                            size: 32,
-                            color: categoria['cor'],
-                          ),
-                          const SizedBox(height: 12),
-                          Text(
-                            categoria['nome'],
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey[800],
+                        child: Row(
+                          children: [
+                            // Ícone
+                            Container(
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                color: Colors.grey.withAlpha(26),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Icon(
+                                categoria['icone'],
+                                color: const Color(0xFF1E3A8A),
+                                size: 24,
+                              ),
                             ),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            categoria['descricao'],
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[600],
+                            const SizedBox(width: 16),
+
+                            // Textos
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    categoria['nome'],
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.grey[800],
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    categoria['descricao'],
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.grey[600],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
+
+                            // Ícone de seleção
+                            if (isSelected)
+                              const Icon(
+                                Icons.check_circle,
+                                color: Color(0xFF1E3A8A),
+                                size: 24,
+                              ),
+                          ],
+                        ),
                       ),
                     ),
                   );
                 },
               ),
             ),
+
+            // Botão Próximo
+            if (categoriaSelecionada != null)
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              DescricaoChamados(userName: widget.userName), // ✅
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF1E3A8A),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      elevation: 0,
+                    ),
+                    child: const Text(
+                      'Próximo',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
           ],
         ),
       ),
