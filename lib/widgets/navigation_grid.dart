@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/navigation_item.dart';
 import '../utils/responsive_helper.dart';
+import '../utils/app_colors.dart';
 
 /// Widget de grid de navegação totalmente responsivo e acessível
 /// 
@@ -47,17 +48,17 @@ class _ResponsiveNavigationContent extends StatelessWidget {
     NavigationItem(
       title: 'Escalas',
       icon: Icons.schedule,
-      color: const Color(0xFF4CAF50),
+      color: AppColors.escalaAndamento,
     ),
     NavigationItem(
       title: 'Despesas',
       icon: Icons.receipt_long,
-      color: const Color(0xFF2196F3),
+      color: AppColors.primaryLight,
     ),
     NavigationItem(
       title: 'Chamados',
       icon: Icons.support_agent,
-      color: const Color(0xFFFF9800),
+      color: AppColors.warning,
     ),
   ];
 
@@ -223,17 +224,17 @@ class _NavigationCardState extends State<_NavigationCard>
           height: cardHeight,
           decoration: BoxDecoration(
             color: _isPressed 
-                ? const Color(0xFFE0E0E0) 
-                : const Color(0xFFEFEFEF),
+                ? AppColors.surfaceLight
+                : AppColors.backgroundSecondary,
             borderRadius: context.responsiveBorderRadius,
             border: Border.all(
-              color: const Color(0xFFD9D9D9),
+              color: AppColors.surfaceMedium,
               width: 1.0,
             ),
             // Sombra sutil para dar profundidade
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withAlpha(13), // 0.05 * 255 = ~13
+                color: AppColors.shadow,
                 blurRadius: 4.0,
                 offset: const Offset(0, 2),
               ),
@@ -380,7 +381,7 @@ class _CardTitle extends StatelessWidget {
           style: TextStyle(
             fontSize: context.fontSize(baseFontSize),
             fontWeight: FontWeight.bold,
-            color: Colors.black87,
+            color: AppColors.textPrimary,
             height: 1.2,
           ),
           textAlign: TextAlign.center,

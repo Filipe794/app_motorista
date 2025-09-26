@@ -6,8 +6,7 @@
 // TODO: Adicionar campo de descrição detalhada
 
 import 'package:flutter/material.dart';
-
-import 'package:rota_mais/utils/responsive_helper.dart';
+import '../../utils/app_colors.dart';
 
 class CriarChamadoScreen extends StatefulWidget {
   const CriarChamadoScreen({super.key});
@@ -57,12 +56,13 @@ class _CriarChamadoScreenState extends State<CriarChamadoScreen> {
     // TODO: Implementar UI do formulário de chamado
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: const BackButton(),
-        title: const Text(
+        backgroundColor: AppColors.primaryDarkBlue,
+        foregroundColor: AppColors.textOnDark,
+        leading: BackButton(color: AppColors.textOnDark),
+        title: Text(
           'Criar Chamado',
           style: TextStyle(
-            color: Colors.black,
+            color: AppColors.textOnDark,
             fontSize: 20,
             fontFamily: 'Plus Jakarta Sans',
             fontWeight: FontWeight.w700,

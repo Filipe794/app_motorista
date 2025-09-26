@@ -7,6 +7,7 @@
 
 import 'package:flutter/material.dart';
 import '../../utils/responsive_helper.dart';
+import '../../utils/app_colors.dart';
 
 class DespesasListScreen extends StatefulWidget {
   const DespesasListScreen({super.key});
@@ -29,11 +30,11 @@ class _DespesasListScreenState extends State<DespesasListScreen> {
           'Despesas',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: AppColors.textOnDark,
           ),
         ),
-        backgroundColor: const Color(0xFF1E3A8A),
-        foregroundColor: Colors.white,
+        backgroundColor: AppColors.primaryDarkBlue,
+        foregroundColor: AppColors.textOnDark,
         elevation: 2,
         centerTitle: true,
       ),

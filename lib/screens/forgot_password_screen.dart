@@ -2,6 +2,7 @@
 // Permite que o motorista solicite recuperação de senha via email
 import 'package:flutter/material.dart';
 import '../utils/responsive_helper.dart';
+import '../utils/app_colors.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -115,7 +116,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> with Ticker
         return AlertDialog(
           title: const Row(
             children: [
-              Icon(Icons.check_circle, color: Colors.green),
+              Icon(Icons.check_circle, color: AppColors.success),
               SizedBox(width: 8),
               Text('Email Enviado'),
             ],
@@ -144,7 +145,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> with Ticker
         return AlertDialog(
           title: const Row(
             children: [
-              Icon(Icons.error_outline, color: Colors.red),
+              Icon(Icons.error_outline, color: AppColors.error),
               SizedBox(width: 8),
               Text('Erro'),
             ],
@@ -175,7 +176,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> with Ticker
     final logoSize = isTablet ? 100.0 : 80.0;
     
     return Scaffold(
-      backgroundColor: const Color(0xFF1E3A8A),
+      backgroundColor: AppColors.primaryDarkBlue,
       body: SafeArea(
         child: FadeTransition(
           opacity: _fadeAnimation,
@@ -199,10 +200,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> with Ticker
                           onPressed: () => Navigator.of(context).pop(),
                           icon: const Icon(
                             Icons.arrow_back_ios,
-                            color: Colors.white,
+                            color: AppColors.textOnDark,
                           ),
                           style: IconButton.styleFrom(
-                            backgroundColor: Colors.white.withValues(alpha: 0.1),
+                            backgroundColor: AppColors.textOnDark.withValues(alpha: 0.1),
                             padding: const EdgeInsets.all(12),
                           ),
                         ),

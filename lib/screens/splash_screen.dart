@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'login_screen.dart';
 import '../utils/responsive_helper.dart';
+import '../utils/app_colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -122,7 +123,7 @@ class _SplashScreenState extends State<SplashScreen>
     final subtitleFontSize = context.fontSize(isTablet ? 18 : 16);
     
     return Scaffold(
-      backgroundColor: const Color(0xFF1E3A8A), // Azul similar ao logo
+      backgroundColor: AppColors.primaryDarkBlue, // Azul similar ao logo
       body: Center(
         child: FadeTransition(
           opacity: _fadeAnimation,
@@ -139,10 +140,10 @@ class _SplashScreenState extends State<SplashScreen>
                     height: logoSize,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.white,
+                      color: AppColors.cardBackground,
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black26,
+                          color: AppColors.shadow,
                           blurRadius: 20,
                           offset: const Offset(0, 10),
                         ),
@@ -153,7 +154,7 @@ class _SplashScreenState extends State<SplashScreen>
                       child: Icon(
                         Icons.directions_bus,
                         size: logoSize * 0.53,
-                        color: const Color(0xFF1E3A8A),
+                        color: AppColors.primaryDarkBlue,
                       ),
                     ),
                   ),
@@ -167,7 +168,7 @@ class _SplashScreenState extends State<SplashScreen>
                   style: TextStyle(
                     fontSize: titleFontSize,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: AppColors.textOnDark,
                     letterSpacing: 2,
                   ),
                 ),
@@ -179,7 +180,7 @@ class _SplashScreenState extends State<SplashScreen>
                   'Gestão de Frota Municipal',
                   style: TextStyle(
                     fontSize: subtitleFontSize,
-                    color: Colors.white70,
+                    color: AppColors.textOnDarkSecondary,
                     fontWeight: FontWeight.w300,
                   ),
                 ),
@@ -195,15 +196,15 @@ class _SplashScreenState extends State<SplashScreen>
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.all(
-                        color: Colors.white,
+                        color: AppColors.textOnDark,
                         width: 3,
                       ),
                     ),
                     child: Container(
                       margin: const EdgeInsets.all(8),
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.white,
+                        color: AppColors.textOnDark,
                       ),
                     ),
                   ),
@@ -216,7 +217,7 @@ class _SplashScreenState extends State<SplashScreen>
                   'Carregando...',
                   style: TextStyle(
                     fontSize: context.fontSize(14),
-                    color: Colors.white54,
+                    color: AppColors.textOnDarkQuaternary,
                   ),
                 ),
                 
@@ -227,7 +228,7 @@ class _SplashScreenState extends State<SplashScreen>
                   'v1.0.0',
                   style: TextStyle(
                     fontSize: context.fontSize(12),
-                    color: Colors.white38,
+                    color: AppColors.textOnDarkTertiary,
                   ),
                 ),
               ],
