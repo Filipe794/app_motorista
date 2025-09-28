@@ -2,10 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../utils/responsive_helper.dart';
+import '../utils/app_colors.dart';
 import 'tela_inicial.dart';
-import 'chamados/chamados_list_screen.dart';
-import 'despesas/despesas_list_screen.dart';
-import 'escalas/escalas_list_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -258,7 +256,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
         return AlertDialog(
           title: const Row(
             children: [
-              Icon(Icons.error_outline, color: Colors.red),
+              Icon(Icons.error_outline, color: AppColors.error),
               SizedBox(width: 8),
               Text('Erro de Login'),
             ],
@@ -310,7 +308,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
     final logoSize = isTablet ? 140.0 : 120.0;
     
     return Scaffold(
-      backgroundColor: const Color(0xFF1E3A8A),
+      backgroundColor: AppColors.primaryDarkBlue,
       body: SafeArea(
         child: FadeTransition(
           opacity: _fadeAnimation,
@@ -338,10 +336,10 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                         height: logoSize,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.white,
+                          color: AppColors.cardBackground,
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black26,
+                              color: AppColors.shadow,
                               blurRadius: 20,
                               offset: const Offset(0, 10),
                             ),
@@ -352,7 +350,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                           child: Icon(
                             Icons.directions_bus,
                             size: logoSize * 0.5,
-                            color: const Color(0xFF1E3A8A),
+                            color: AppColors.primaryDarkBlue,
                           ),
                         ),
                       ),
@@ -366,7 +364,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                       style: TextStyle(
                         fontSize: context.fontSize(isTablet ? 38 : 32),
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: AppColors.textOnDark,
                         letterSpacing: 2,
                       ),
                     ),
@@ -378,7 +376,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                       'Gestão de Frota Municipal',
                       style: TextStyle(
                         fontSize: context.fontSize(isTablet ? 18 : 16),
-                        color: Colors.white70,
+                        color: AppColors.textOnDarkSecondary,
                         fontWeight: FontWeight.w300,
                       ),
                     ),
@@ -404,7 +402,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                                   style: TextStyle(
                                     fontSize: context.fontSize(isTablet ? 24 : 20),
                                     fontWeight: FontWeight.bold,
-                                    color: const Color(0xFF1E3A8A),
+                                    color: AppColors.primaryDarkBlue,
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
@@ -427,8 +425,8 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(12),
-                                      borderSide: const BorderSide(
-                                        color: Color(0xFF1E3A8A),
+                                      borderSide: BorderSide(
+                                        color: AppColors.primaryDarkBlue,
                                         width: 2,
                                       ),
                                     ),
@@ -471,8 +469,8 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(12),
-                                      borderSide: const BorderSide(
-                                        color: Color(0xFF1E3A8A),
+                                      borderSide: BorderSide(
+                                        color: AppColors.primaryDarkBlue,
                                         width: 2,
                                       ),
                                     ),
@@ -500,24 +498,24 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                                           _rememberMe = value ?? false;
                                         });
                                       },
-                                      activeColor: const Color(0xFF1E3A8A),
+                                      activeColor: AppColors.primaryDarkBlue,
                                     ),
                                     const Expanded(
                                       child: Text(
                                         'Lembrar de mim',
                                         style: TextStyle(
                                           fontSize: 14,
-                                          color: Colors.grey,
+                                          color: AppColors.textSecondary,
                                         ),
                                       ),
                                     ),
                                     TextButton(
                                       onPressed: _forgotPassword,
-                                      child: const Text(
+                                      child: Text(
                                         'Esqueci a senha',
                                         style: TextStyle(
                                           fontSize: 14,
-                                          color: Color(0xFF1E3A8A),
+                                          color: AppColors.primaryDarkBlue,
                                           decoration: TextDecoration.underline,
                                         ),
                                       ),
@@ -533,8 +531,8 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                                   child: ElevatedButton(
                                     onPressed: _isLoading ? null : _login,
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: const Color(0xFF1E3A8A),
-                                      foregroundColor: Colors.white,
+                                      backgroundColor: AppColors.primaryDarkBlue,
+                                      foregroundColor: AppColors.textOnDark,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(12),
                                       ),
@@ -547,7 +545,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                                             child: CircularProgressIndicator(
                                               strokeWidth: 2,
                                               valueColor: AlwaysStoppedAnimation<Color>(
-                                                Colors.white,
+                                                AppColors.textOnDark,
                                               ),
                                             ),
                                           )
@@ -579,14 +577,14 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                     Container(
                       padding: EdgeInsets.all(context.horizontalPadding),
                       decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.1),
+                        color: AppColors.overlayOnDark,
                         borderRadius: context.responsiveBorderRadius,
                       ),
                       child: Column(
                         children: [
                           const Icon(
                             Icons.info_outline,
-                            color: Colors.white70,
+                            color: AppColors.textOnDarkSecondary,
                             size: 20,
                           ),
                           const SizedBox(height: 8),
@@ -594,7 +592,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                             'Para problemas de acesso, entre em contato\ncom a Secretaria de Transportes',
                             style: TextStyle(
                               fontSize: context.fontSize(isTablet ? 14 : 12),
-                              color: Colors.white70,
+                              color: AppColors.textOnDarkSecondary,
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -609,7 +607,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                       'Rota+ v1.0.0 - Prefeitura Municipal',
                       style: TextStyle(
                         fontSize: context.fontSize(isTablet ? 12 : 10),
-                        color: Colors.white38,
+                        color: AppColors.textOnDarkTertiary,
                       ),
                       textAlign: TextAlign.center,
                     ),

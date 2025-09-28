@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rota_mais/screens/chamados/descricao_chamado.dart';
+import '../../utils/app_colors.dart';
 
 class CriarChamadoScreen extends StatefulWidget {
   final String userName; // <-- recebe o nome do motorista
@@ -50,14 +51,13 @@ class _CriarChamadoScreenState extends State<CriarChamadoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF1E3A8A),
-        leading: const BackButton(
-          color: Colors.white,
-        ),
-        title: const Text(
+        backgroundColor: AppColors.primaryDarkBlue,
+        foregroundColor: AppColors.textOnDark,
+        leading: BackButton(color: AppColors.textOnDark),
+        title: Text(
           'Criar Chamado',
           style: TextStyle(
-            color: Colors.white,
+            color: AppColors.textOnDark,
             fontSize: 20,
             fontFamily: 'Plus Jakarta Sans',
             fontWeight: FontWeight.w700,

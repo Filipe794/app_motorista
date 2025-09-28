@@ -1,6 +1,8 @@
 import 'package:rota_mais/screens/chamados/criar_chamado_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:rota_mais/utils/responsive_helper.dart';
+import '../../utils/responsive_helper.dart';
+import '../../utils/app_colors.dart';
+import 'criar_chamado_screen.dart';
 
 class ChamadosListScreen extends StatefulWidget {
   final String userName; // <-- adiciona aqui
@@ -76,12 +78,13 @@ class _ChamadosListScreenState extends State<ChamadosListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF1E3A8A),
-        leading: const BackButton(color: Colors.white),
-        title: const Text(
+        backgroundColor: AppColors.primaryDarkBlue,
+        foregroundColor: AppColors.textOnDark,
+        leading: const BackButton(color: AppColors.textOnDark),
+        title: Text(
           'Chamados',
           style: TextStyle(
-            color: Colors.white,
+            color: AppColors.textOnDark,
             fontSize: 20,
             fontFamily: 'Plus Jakarta Sans',
             fontWeight: FontWeight.w700,
@@ -200,7 +203,7 @@ class _ChamadosListScreenState extends State<ChamadosListScreen> {
                   height: 48,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF1E3A8A),
+                      backgroundColor: AppColors.success,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),

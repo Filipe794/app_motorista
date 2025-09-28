@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rota_mais/screens/despesas/adicionar_despesa_screen.dart';
 import 'package:rota_mais/utils/responsive_helper.dart';
+import '../../utils/responsive_helper.dart';
+import '../../utils/app_colors.dart';
 
 // Tela de lista de despesas
 class DespesasListScreen extends StatefulWidget {
@@ -120,12 +122,13 @@ class _DespesasListScreenState extends State<DespesasListScreen> {
         title: const Text(
           'Despesas',
           style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontFamily: 'Plus Jakarta Sans',
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.bold,
+            color: AppColors.textOnDark,
           ),
         ),
+        backgroundColor: AppColors.primaryDarkBlue,
+        foregroundColor: AppColors.textOnDark,
+        elevation: 2,
         centerTitle: true,
         elevation: 0,
       ),
