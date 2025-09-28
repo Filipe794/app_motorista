@@ -28,7 +28,7 @@ class EscalaAndamentoScreen extends StatefulWidget {
   State<EscalaAndamentoScreen> createState() => _EscalaAndamentoScreenState();
 }
 
-class _EscalaAndamentoScreenState extends State<EscalaAndamentoScreen> {
+class _EscalaAndamentoScreenState extends State<EscalaAndamentoScreen> with WidgetsBindingObserver {
   // Timer para atualizar o contador
   Timer? _timer;
   Duration _tempoEscala = Duration.zero;
@@ -47,14 +47,102 @@ class _EscalaAndamentoScreenState extends State<EscalaAndamentoScreen> {
   @override
   void initState() {
     super.initState();
+    // Adicionar observer para detectar mudanças no ciclo de vida do app
+    WidgetsBinding.instance.addObserver(this);
     // Timer será iniciado apenas quando a escala for iniciada
     // _iniciarTimer();
   }
   
   @override
   void dispose() {
+    // Remover observer
+    WidgetsBinding.instance.removeObserver(this);
     _timer?.cancel();
     super.dispose();
+  }
+  
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    
+    // Se o app vai para segundo plano e a escala está ativa
+    if (state == AppLifecycleState.paused && _escalaIniciada && _escalaAtiva) {
+      _mostrarNotificacaoEscalaAtiva();
+    }
+    
+    // Quando o app volta para primeiro plano
+    if (state == AppLifecycleState.resumed && _escalaIniciada && !_escalaAtiva) {
+      _mostrarDialogoRetornoEscala();
+    }
+  }
+  
+  void _mostrarNotificacaoEscalaAtiva() {
+    // Aqui você pode implementar uma notificação local
+    // Por enquanto, vamos apenas marcar que o app foi minimizado com escala ativa
+    debugPrint('App minimizado com escala ativa - usuário: ${widget.userName}');
+  }
+  
+  void _mostrarDialogoRetornoEscala() {
+    // Mostrar diálogo quando voltar ao app com escala pausada
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => AlertDialog(
+            title: const Row(
+              children: [
+                Icon(Icons.play_circle, color: AppColors.success, size: 28),
+                SizedBox(width: 12),
+                Text('Retomar Escala?'),
+              ],
+            ),
+            content: const Text(
+              'Sua escala foi pausada quando você saiu do aplicativo.\n\n'
+              'Deseja retomar a escala agora?',
+              style: TextStyle(fontSize: 16, height: 1.5),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Manter Pausada'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  setState(() {
+                    _escalaAtiva = true;
+                  });
+                  
+                  if (mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Row(
+                          children: [
+                            Icon(Icons.play_arrow, color: Colors.white),
+                            SizedBox(width: 12),
+                            Text('Escala retomada com sucesso!'),
+                          ],
+                        ),
+                        backgroundColor: AppColors.success,
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.success,
+                  foregroundColor: AppColors.textOnDark,
+                ),
+                child: const Text('Retomar Escala'),
+              ),
+            ],
+          ),
+        );
+      }
+    });
   }
   
   void _iniciarTimer() {
@@ -246,6 +334,7 @@ class _EscalaAndamentoScreenState extends State<EscalaAndamentoScreen> {
   }
   
   void _mostrarSnackBarSucesso() {
+    if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Row(
@@ -262,6 +351,7 @@ class _EscalaAndamentoScreenState extends State<EscalaAndamentoScreen> {
   }
   
   void _mostrarErro(String mensagem) {
+    if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Row(
@@ -280,22 +370,29 @@ class _EscalaAndamentoScreenState extends State<EscalaAndamentoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundLight,
-      appBar: AppBar(
-        title: Text(
-          _escalaIniciada ? 'Escala em Andamento' : 'Iniciar Escala',
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            color: AppColors.textOnDark,
+        backgroundColor: AppColors.backgroundLight,
+        appBar: AppBar(
+          title: Text(
+            _escalaIniciada ? 'Escala em Andamento' : 'Iniciar Escala',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              color: AppColors.textOnDark,
+            ),
           ),
+          backgroundColor: AppColors.primaryDarkBlue,
+          foregroundColor: AppColors.textOnDark,
+          elevation: 0,
+          centerTitle: true,
+          iconTheme: const IconThemeData(color: AppColors.textOnDark),
+          // Interceptar o botão de voltar também
+          leading: _escalaIniciada && _escalaAtiva 
+            ? IconButton(
+                icon: const Icon(Icons.arrow_back, color: AppColors.textOnDark),
+                onPressed: () => _tentarSairDaTela(),
+              )
+            : null,
         ),
-        backgroundColor: AppColors.primaryDarkBlue,
-        foregroundColor: AppColors.textOnDark,
-        elevation: 0,
-        centerTitle: true,
-        iconTheme: const IconThemeData(color: AppColors.textOnDark),
-      ),
-      body: SafeArea(
+        body: SafeArea(
         child: Center(
           child: ConstrainedBox(
             constraints: BoxConstraints(
@@ -352,6 +449,88 @@ class _EscalaAndamentoScreenState extends State<EscalaAndamentoScreen> {
           ),
         ),
       ),
+    );
+  }
+  
+  // Método para tentar sair da tela com verificação de escala ativa
+  void _tentarSairDaTela() async {
+    if (_escalaIniciada && _escalaAtiva) {
+      bool? canExit = await _mostrarDialogoConfirmacaoSaida();
+      if (canExit == true && mounted) {
+        Navigator.of(context).pop();
+      }
+    } else {
+      // Se escala não está ativa, pode sair normalmente
+      if (mounted) {
+        Navigator.of(context).pop();
+      }
+    }
+  }
+
+  // Método para confirmar saída durante escala ativa
+  Future<bool?> _mostrarDialogoConfirmacaoSaida() async {
+    return showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Row(
+            children: [
+              Icon(Icons.warning_amber_rounded, color: AppColors.warning, size: 28),
+              SizedBox(width: 12),
+              Text(
+                'Escala em Andamento',
+                style: TextStyle(fontSize: 16),
+              ),
+            ],
+          ),
+          content: const Text(
+            'Você tem uma escala ativa em andamento!\n\n'
+            'Para sair desta tela, você deve primeiro pausar ou finalizar a escala. '
+            'Isso garante a segurança dos passageiros e o controle adequado da rota.\n\n'
+            'Deseja pausar a escala agora?',
+            style: TextStyle(fontSize: 16, height: 1.5),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('Continuar Escala'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Pausar a escala automaticamente
+                setState(() {
+                  _escalaAtiva = false;
+                });
+                
+                Navigator.of(context).pop(true);
+                
+                // Mostrar feedback
+                if (mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Row(
+                        children: [
+                          Icon(Icons.pause_circle, color: Colors.white),
+                          SizedBox(width: 12),
+                          Text('Escala pausada. Você pode retomar quando voltar.'),
+                        ],
+                      ),
+                      backgroundColor: AppColors.warning,
+                      duration: Duration(seconds: 3),
+                    ),
+                  );
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.warning,
+                foregroundColor: AppColors.textOnDark,
+              ),
+              child: const Text('Pausar e Sair'),
+            ),
+          ],
+        );
+      },
     );
   }
   
@@ -813,7 +992,7 @@ class _EscalaAndamentoScreenState extends State<EscalaAndamentoScreen> {
                 }
               },
               borderRadius: BorderRadius.circular(30),
-              child: Container(
+              child: const SizedBox(
                 width: double.infinity,
                 height: double.infinity,
               ),
@@ -870,11 +1049,13 @@ class _EscalaAndamentoScreenState extends State<EscalaAndamentoScreen> {
                   setState(() {
                     _escalaAtiva = !_escalaAtiva;
                   });
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(_escalaAtiva ? 'Escala retomada' : 'Escala pausada'),
-                    ),
-                  );
+                  if (mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(_escalaAtiva ? 'Escala retomada' : 'Escala pausada'),
+                      ),
+                    );
+                  }
                 },
                 icon: Icon(_escalaAtiva ? Icons.pause : Icons.play_arrow),
                 label: Text(_escalaAtiva ? 'Pausar Escala' : 'Retomar Escala'),
@@ -973,12 +1154,14 @@ class _EscalaAndamentoScreenState extends State<EscalaAndamentoScreen> {
                 // Para o timer se estiver rodando
                 _timer?.cancel();
                 
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Escala finalizada com sucesso! Você pode iniciar uma nova escala.'),
-                    duration: Duration(seconds: 3),
-                  ),
-                );
+                if (mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Escala finalizada com sucesso! Você pode iniciar uma nova escala.'),
+                      duration: Duration(seconds: 3),
+                    ),
+                  );
+                }
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primaryDarkBlue,

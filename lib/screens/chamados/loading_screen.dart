@@ -23,60 +23,62 @@ class _LoadingScreenState extends State<LoadingScreen> {
     super.initState();
 
     Future.delayed(const Duration(seconds: 3), () {
-      setState(() {
-        carregando = false;
-        mensagem = "Pronto!";
-      });
+      if (mounted) {
+        setState(() {
+          carregando = false;
+          mensagem = "Pronto!";
+        });
 
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => TelaInicial(
-            userName: widget.userName,
-            onLogout: () {
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => const LoginScreen()),
-                (Route<dynamic> route) => false,
-              );
-            },
-            onNavigationTap: (String itemTitle) {
-              switch (itemTitle) {
-                case 'Chamados':
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ChamadosListScreen(userName: widget.userName,),
-                    ),
-                  );
-                  break;
-                case 'Despesas':
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DespesasListScreen(userName: widget.userName,),
-                    ),
-                  );
-                  break;
-                case 'Escalas':
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => EscalasListScreen(userName: widget.userName),
-                    ),
-                  );
-                  break;
-                default:
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Navegação para "$itemTitle" em desenvolvimento'),
-                      duration: const Duration(seconds: 2),
-                    ),
-                  );
-              }
-            },
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TelaInicial(
+              userName: widget.userName,
+              onLogout: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                  (Route<dynamic> route) => false,
+                );
+              },
+              onNavigationTap: (String itemTitle) {
+                switch (itemTitle) {
+                  case 'Chamados':
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChamadosListScreen(userName: widget.userName,),
+                      ),
+                    );
+                    break;
+                  case 'Despesas':
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DespesasListScreen(userName: widget.userName,),
+                      ),
+                    );
+                    break;
+                  case 'Escalas':
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EscalasListScreen(userName: widget.userName),
+                      ),
+                    );
+                    break;
+                  default:
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Navegação para "$itemTitle" em desenvolvimento'),
+                        duration: const Duration(seconds: 2),
+                      ),
+                    );
+                }
+              },
+            ),
           ),
-        ),
-      );
+        );
+      }
     });
   }
 
