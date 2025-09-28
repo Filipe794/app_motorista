@@ -182,6 +182,43 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                         (Route<dynamic> route) => false,
                       );
                     },
+                    onNavigationTap: (String itemTitle) {
+                      // Navegar para a tela correspondente baseado no título
+                      switch (itemTitle) {
+                        case 'Chamados':
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ChamadosListScreen(userName: nomeMotorista,),
+                            ),
+                          );
+                          break;
+                        case 'Despesas':
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DespesasListScreen(userName: nomeMotorista,),
+                            ),
+                          );
+                          break;
+                        case 'Escalas':
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const EscalasListScreen(),
+                            ),
+                          );
+                          break;
+                        default:
+                          // Exibir snackbar para itens não implementados
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Navegação para "$itemTitle" em desenvolvimento'),
+                              duration: const Duration(seconds: 2),
+                            ),
+                          );
+                      }
+                    },
                   ),
               transitionDuration: const Duration(milliseconds: 500),
               transitionsBuilder: (context, animation, secondaryAnimation, child) {

@@ -1,20 +1,23 @@
+import 'package:rota_mais/screens/chamados/criar_chamado_screen.dart';
 import 'package:flutter/material.dart';
 import '../../utils/responsive_helper.dart';
 import '../../utils/app_colors.dart';
 import 'criar_chamado_screen.dart';
 
 class ChamadosListScreen extends StatefulWidget {
-  const ChamadosListScreen({super.key});
+  final String userName; // <-- adiciona aqui
+
+  const ChamadosListScreen({super.key, required this.userName});
 
   @override
   State<ChamadosListScreen> createState() => _ChamadosListScreenState();
 }
 
-String? dataSelecionada;
-String? categoriaSelecionada;
-
 class _ChamadosListScreenState extends State<ChamadosListScreen> {
-  // Lista de chamados
+  String? dataSelecionada;
+  String? categoriaSelecionada;
+
+  // Lista de chamados (mock)
   final List<Map<String, dynamic>> chamados = [
     {
       "id": "0001",
@@ -31,65 +34,9 @@ class _ChamadosListScreenState extends State<ChamadosListScreen> {
       "categoria": "Reparos"
     },
     {
-      "id": "0003",
-      "titulo": "Troca de Óleo",
-      "data": "19/02/2025",
-      "valor": 150.0,
-      "categoria": "Reparos"
-    },
-    {
-      "id": "0004",
-      "titulo": "Alinhamento e Balanceamento",
-      "data": "17/02/2025",
-      "valor": 250.0,
-      "categoria": "Reparos"
-    },
-    {
       "id": "0005",
       "titulo": "Acidente na Rota",
       "data": "15/02/2025",
-      "valor": 0.0,
-      "categoria": "Problemas na Rota"
-    },
-    {
-      "id": "0006",
-      "titulo": "Bloqueio na Estrada",
-      "data": "16/02/2025",
-      "valor": 0.0,
-      "categoria": "Problemas na Rota"
-    },
-    {
-      "id": "0007",
-      "titulo": "Reparo na Suspensão",
-      "data": "14/02/2025",
-      "valor": 900.0,
-      "categoria": "Reparos"
-    },
-    {
-      "id": "0008",
-      "titulo": "Lavagem Completa",
-      "data": "13/02/2025",
-      "valor": 80.0,
-      "categoria": "Reparos"
-    },
-    {
-      "id": "0011",
-      "titulo": "Lavagem Completa",
-      "data": "13/02/2025",
-      "valor": 80.0,
-      "categoria": "Problemas na Rota"
-    },
-    {
-      "id": "0009",
-      "titulo": "Troca de Farol",
-      "data": "12/02/2025",
-      "valor": 180.0,
-      "categoria": "Reparos"
-    },
-    {
-      "id": "0010",
-      "titulo": "Problema com GPS",
-      "data": "11/02/2025",
       "valor": 0.0,
       "categoria": "Problemas na Rota"
     },
@@ -107,36 +54,25 @@ class _ChamadosListScreenState extends State<ChamadosListScreen> {
       "valor": 300.0,
       "categoria": "Freios"
     },
-    {
-      "id": "0014",
-      "titulo": "Reparo no Sistema de Freios",
-      "data": "23/02/2025",
-      "valor": 400.0,
-      "categoria": "Freios"
-    },
   ];
 
-  // Getters para dados e categorias
-  List<String> get datas => chamados
-      .map((c) => c["data"] as String)
-      .toSet()
-      .toList();
+  List<String> get datas => chamados.map((c) => c["data"] as String).toSet().toList();
 
   List<String> get categorias => [
-    "Reparos",
-    "Problemas na Rota",
-    "Acidente",
-    "Climatização",
-    "Freios",
-  ];
-
+        "Reparos",
+        "Problemas na Rota",
+        "Acidente",
+        "Climatização",
+        "Freios",
+      ];
 
   @override
   Widget build(BuildContext context) {
-    // Filtra os chamados pela data e categoria selecionada
     final chamadosFiltrados = chamados.where((c) {
-      final bool filtraData = dataSelecionada == null || c["data"] == dataSelecionada;
-      final bool filtraCategoria = categoriaSelecionada == null || c["categoria"] == categoriaSelecionada;
+      final bool filtraData =
+          dataSelecionada == null || c["data"] == dataSelecionada;
+      final bool filtraCategoria =
+          categoriaSelecionada == null || c["categoria"] == categoriaSelecionada;
       return filtraData && filtraCategoria;
     }).toList();
 
@@ -157,49 +93,45 @@ class _ChamadosListScreenState extends State<ChamadosListScreen> {
         centerTitle: true,
         elevation: 0,
       ),
-
-      //
       body: Container(
         color: Colors.white,
         child: Column(
           children: [
-            // Espaçamento superior
             SizedBox(height: context.verticalSpacing),
 
-            // Linha de filtros
+            // Filtros
             Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: context.horizontalPadding,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: context.horizontalPadding),
               child: Row(
                 children: [
                   const SizedBox(width: 8),
 
-                  // Dropdown de Categorias
+                  // Filtro Categoria
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.22, // Responsive width ~22% of screen
+                    width: MediaQuery.of(context).size.width * 0.40,
                     child: DropdownButton<String>(
                       isExpanded: true,
-                      hint: const Icon(
-                        Icons.filter_alt_outlined,
-                        color: Colors.black54,
-                      ),
+                      hint: const Icon(Icons.filter_alt_outlined, color: Colors.black54),
                       value: categoriaSelecionada,
                       items: categorias.map((cat) {
                         return DropdownMenuItem(
                           value: cat,
-                          child: Text(cat),
+                          child: Text(
+                            cat,
+                            style: TextStyle(
+                              fontSize: context.fontSize(16),
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                         );
                       }).toList(),
                       onChanged: (value) {
-                        setState(() {
-                          categoriaSelecionada = value;
-                        });
+                        setState(() => categoriaSelecionada = value);
                       },
                     ),
                   ),
 
-                  // Dropdown de Datas
+                  // Filtro Data
                   Expanded(
                     child: DropdownButton<String>(
                       isExpanded: true,
@@ -212,16 +144,14 @@ class _ChamadosListScreenState extends State<ChamadosListScreen> {
                         );
                       }).toList(),
                       onChanged: (value) {
-                        setState(() {
-                          dataSelecionada = value;
-                        });
+                        setState(() => dataSelecionada = value);
                       },
                     ),
                   ),
 
                   const SizedBox(width: 8),
 
-                  // Botão de resetar filtros
+                  // Resetar filtros
                   GestureDetector(
                     onTap: () {
                       setState(() {
@@ -229,23 +159,7 @@ class _ChamadosListScreenState extends State<ChamadosListScreen> {
                         categoriaSelecionada = null;
                       });
                     },
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.refresh,
-                          color: AppColors.error,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          "Resetar Filtro",
-                          style: TextStyle(
-                            color: AppColors.error,
-                            fontSize: context.fontSize(14),
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: const Icon(Icons.refresh, color: Colors.red),
                   ),
                 ],
               ),
@@ -253,20 +167,17 @@ class _ChamadosListScreenState extends State<ChamadosListScreen> {
 
             SizedBox(height: context.verticalSpacing),
 
-            // Lista de chamados filtrados
+            // Lista
             Expanded(
               child: ListView(
                 children: chamadosFiltrados.map((chamado) {
                   return Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 4,
-                    ),
+                    margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border(
                         bottom: BorderSide(
-                          color: Colors.grey.withAlpha(51), // 0.2 * 255 = 51
+                          color: Colors.grey.withAlpha(51),
                           width: 1,
                         ),
                       ),
@@ -301,7 +212,8 @@ class _ChamadosListScreenState extends State<ChamadosListScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const CriarChamadoScreen(),
+                          builder: (context) =>
+                              CriarChamadoScreen(userName: widget.userName), // ✅
                         ),
                       );
                     },
