@@ -5,7 +5,12 @@ import '../../widgets/next_shift_card.dart';
 import 'escala_details_screen.dart';
 
 class EscalasListScreen extends StatefulWidget {
-  const EscalasListScreen({super.key});
+  final String userName;
+  
+  const EscalasListScreen({
+    super.key,
+    required this.userName,
+  });
 
   @override
   State<EscalasListScreen> createState() => _EscalasListScreenState();
@@ -71,7 +76,10 @@ class _EscalasListScreenState extends State<EscalasListScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => EscalaDetailsScreen(escalaId: escalaId),
+        builder: (context) => EscalaDetailsScreen(
+          escalaId: escalaId,
+          userName: widget.userName,
+        ),
       ),
     );
   }

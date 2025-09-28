@@ -4,6 +4,9 @@ import 'package:flutter/services.dart';
 import '../utils/responsive_helper.dart';
 import '../utils/app_colors.dart';
 import 'tela_inicial.dart';
+import 'chamados/chamados_list_screen.dart';
+import 'despesas/despesas_list_screen.dart';
+import 'escalas/escalas_list_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -205,7 +208,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const EscalasListScreen(),
+                              builder: (context) => EscalasListScreen(userName: nomeMotorista),
                             ),
                           );
                           break;

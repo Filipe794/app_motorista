@@ -18,9 +18,13 @@ class NextShiftCard extends StatelessWidget {
   /// Callback opcional para ação customizada ao clicar no botão
   final VoidCallback? onShiftTap;
   
+  /// Nome do usuário para passar para as telas de navegação
+  final String? userName;
+  
   const NextShiftCard({
     super.key,
     this.onShiftTap,
+    this.userName,
   });
 
   @override
@@ -30,6 +34,7 @@ class NextShiftCard extends StatelessWidget {
         return _ResponsiveShiftCardContent(
           onShiftTap: onShiftTap,
           availableWidth: constraints.maxWidth,
+          userName: userName,
         );
       },
     );
@@ -40,10 +45,12 @@ class NextShiftCard extends StatelessWidget {
 class _ResponsiveShiftCardContent extends StatelessWidget {
   final VoidCallback? onShiftTap;
   final double availableWidth;
+  final String? userName;
   
   const _ResponsiveShiftCardContent({
     required this.onShiftTap,
     required this.availableWidth,
+    this.userName,
   });
 
   @override
@@ -53,6 +60,7 @@ class _ResponsiveShiftCardContent extends StatelessWidget {
       child: _MainShiftCard(
         onShiftTap: onShiftTap,
         availableWidth: availableWidth,
+        userName: userName,
       ),
     );
   }
@@ -62,10 +70,12 @@ class _ResponsiveShiftCardContent extends StatelessWidget {
 class _MainShiftCard extends StatelessWidget {
   final VoidCallback? onShiftTap;
   final double availableWidth;
+  final String? userName;
   
   const _MainShiftCard({
     required this.onShiftTap,
     required this.availableWidth,
+    this.userName,
   });
 
   @override
@@ -97,7 +107,10 @@ class _MainShiftCard extends StatelessWidget {
             _ResponsiveMapSection(availableWidth: availableWidth),
             
             // Informações e botão de ação
-            _ShiftInfoSection(onShiftTap: onShiftTap),
+            _ShiftInfoSection(
+              onShiftTap: onShiftTap,
+              userName: userName,
+            ),
           ],
         ),
       ),
@@ -154,8 +167,12 @@ class _ResponsiveMapSection extends StatelessWidget {
 /// Seção com informações da escala e botão de ação
 class _ShiftInfoSection extends StatelessWidget {
   final VoidCallback? onShiftTap;
+  final String? userName;
   
-  const _ShiftInfoSection({required this.onShiftTap});
+  const _ShiftInfoSection({
+    required this.onShiftTap,
+    this.userName,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +193,10 @@ class _ShiftInfoSection extends StatelessWidget {
           SizedBox(height: context.verticalSpacing),
           
           // Botão de ação responsivo
-          _ActionButton(onShiftTap: onShiftTap),
+          _ActionButton(
+            onShiftTap: onShiftTap,
+            userName: this.userName,
+          ),
         ],
       ),
     );
@@ -254,8 +274,12 @@ class _StopsInfo extends StatelessWidget {
 /// Botão de ação responsivo e acessível
 class _ActionButton extends StatelessWidget {
   final VoidCallback? onShiftTap;
+  final String? userName;
   
-  const _ActionButton({required this.onShiftTap});
+  const _ActionButton({
+    required this.onShiftTap,
+    this.userName,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -323,8 +347,9 @@ class _ActionButton extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const EscalaDetailsScreen(
+        builder: (context) => EscalaDetailsScreen(
           escalaId: '1', // ID da escala padrão para o card da próxima escala
+          userName: userName ?? 'Usuário', // Usa userName se disponível, senão usa valor padrão
         ),
       ),
     );

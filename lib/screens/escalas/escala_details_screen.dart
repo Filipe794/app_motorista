@@ -12,10 +12,12 @@ import 'escala_andamento_screen.dart';
 
 class EscalaDetailsScreen extends StatefulWidget {
   final String escalaId;
+  final String userName;
   
   const EscalaDetailsScreen({
     super.key,
     required this.escalaId,
+    required this.userName,
   });
 
   @override
@@ -102,7 +104,10 @@ class _EscalaDetailsScreenState extends State<EscalaDetailsScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => EscalaAndamentoScreen(escalaId: widget.escalaId),
+        builder: (context) => EscalaAndamentoScreen(
+          escalaId: widget.escalaId,
+          userName: widget.userName,
+        ),
       ),
     );
   }

@@ -9,17 +9,19 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../utils/responsive_helper.dart';
 import '../../utils/app_colors.dart';
-import '../chamados/criar_chamado_screen.dart';
 import '../passageiros/passageiros_list_screen.dart';
+import '../chamados/criar_chamado_screen.dart';
 import '../validacao/validar_ticket_screen.dart';
 import 'monitoramento_tempo_real_screen.dart';
 
 class EscalaAndamentoScreen extends StatefulWidget {
   final String escalaId;
+  final String userName;
   
   const EscalaAndamentoScreen({
     super.key,
     required this.escalaId,
+    required this.userName,
   });
 
   @override
@@ -711,7 +713,7 @@ class _EscalaAndamentoScreenState extends State<EscalaAndamentoScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const CriarChamadoScreen(),
+              builder: (context) => CriarChamadoScreen(userName: widget.userName),
             ),
           );
         },

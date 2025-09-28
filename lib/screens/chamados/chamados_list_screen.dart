@@ -2,7 +2,6 @@ import 'package:rota_mais/screens/chamados/criar_chamado_screen.dart';
 import 'package:flutter/material.dart';
 import '../../utils/responsive_helper.dart';
 import '../../utils/app_colors.dart';
-import 'criar_chamado_screen.dart';
 
 class ChamadosListScreen extends StatefulWidget {
   final String userName; // <-- adiciona aqui

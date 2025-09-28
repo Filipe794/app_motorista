@@ -58,7 +58,7 @@ class TelaInicial extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const ChamadosListScreen(),
+            builder: (context) => ChamadosListScreen(userName: userName),
           ),
         );
         break;
@@ -66,7 +66,7 @@ class TelaInicial extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const DespesasListScreen(),
+            builder: (context) => DespesasListScreen(userName: userName),
           ),
         );
         break;
@@ -74,7 +74,7 @@ class TelaInicial extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const EscalasListScreen(),
+            builder: (context) => EscalasListScreen(userName: userName),
           ),
         );
         break;
@@ -219,7 +219,10 @@ class _ResponsiveMainContent extends StatelessWidget {
                     
                     SizedBox(height: context.verticalSpacing),
                     
-                    NextShiftCard(onShiftTap: onShiftTap),
+                    NextShiftCard(
+                      onShiftTap: onShiftTap,
+                      userName: userName,
+                    ),
                   ],
                 ),
               ),
@@ -276,7 +279,10 @@ class _ResponsiveMainContent extends StatelessWidget {
           SizedBox(height: context.verticalSpacing),
           
           // Card da próxima escala
-          NextShiftCard(onShiftTap: onShiftTap),
+          NextShiftCard(
+            onShiftTap: onShiftTap,
+            userName: userName,
+          ),
           
           SizedBox(height: context.verticalSpacing),
           
@@ -324,7 +330,10 @@ class _ResponsiveMainContent extends StatelessWidget {
           SizedBox(height: context.verticalSpacing),
           
           // Card da próxima escala
-          NextShiftCard(onShiftTap: onShiftTap),
+          NextShiftCard(
+            onShiftTap: onShiftTap,
+            userName: userName,
+          ),
           
           SizedBox(height: context.verticalSpacing * 2),
         ],

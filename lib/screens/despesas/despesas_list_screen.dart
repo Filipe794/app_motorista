@@ -115,7 +115,6 @@ class _DespesasListScreenState extends State<DespesasListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF1E3A8A),
         leading: const BackButton(
           color: Colors.white,
         ),
@@ -128,7 +127,6 @@ class _DespesasListScreenState extends State<DespesasListScreen> {
         ),
         backgroundColor: AppColors.primaryDarkBlue,
         foregroundColor: AppColors.textOnDark,
-        elevation: 2,
         centerTitle: true,
         elevation: 0,
       ),

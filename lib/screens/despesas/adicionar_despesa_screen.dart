@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rota_mais/screens/despesas/descricao_despesa.dart';
 import 'package:rota_mais/utils/responsive_helper.dart';
-import 'package:rota_mais/screens/login_screen.dart';
 
 // TODO: Implementar formulário de nova despesa
 // TODO: Adicionar seleção de categoria
