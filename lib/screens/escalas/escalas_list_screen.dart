@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../utils/responsive_helper.dart';
+import '../../utils/app_colors.dart';
 import '../../widgets/next_shift_card.dart';
 import 'escala_details_screen.dart';
 
@@ -37,7 +38,7 @@ class _EscalasListScreenState extends State<EscalasListScreen> {
         horario: '06:00 - 10:00',
         veiculo: 'Ônibus 5678',
         paradas: 6,
-        status: EscalaStatus.concluido,
+        status: EscalaStatus.cancelado,
       ),
       EscalaInfo(
         id: '3',
@@ -87,11 +88,11 @@ class _EscalasListScreenState extends State<EscalasListScreen> {
           'Escalas',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: AppColors.textOnDark,
           ),
         ),
-        backgroundColor: const Color(0xFF1E3A8A),
-        foregroundColor: Colors.white,
+        backgroundColor: AppColors.primaryDarkBlue,
+        foregroundColor: AppColors.textOnDark,
         elevation: 2,
         centerTitle: true,
       ),
@@ -312,13 +313,13 @@ class _EscalaListItem extends StatelessWidget {
   Color _getStatusColor(EscalaStatus status) {
     switch (status) {
       case EscalaStatus.agendado:
-        return const Color(0xFF2196F3);
+        return AppColors.escalaAgendada;
       case EscalaStatus.emAndamento:
-        return const Color(0xFF4CAF50);
+        return AppColors.escalaAndamento;
       case EscalaStatus.concluido:
-        return const Color(0xFF9E9E9E);
+        return AppColors.escalaConcluida;
       case EscalaStatus.cancelado:
-        return const Color(0xFFF44336);
+        return AppColors.escalaCancelada;
     }
   }
   

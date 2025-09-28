@@ -7,6 +7,7 @@
 
 import 'package:flutter/material.dart';
 import '../../utils/responsive_helper.dart';
+import '../../utils/app_colors.dart';
 import 'escala_andamento_screen.dart';
 
 class EscalaDetailsScreen extends StatefulWidget {
@@ -113,7 +114,7 @@ class _EscalaDetailsScreenState extends State<EscalaDetailsScreen> {
         return AlertDialog(
           title: const Row(
             children: [
-              Icon(Icons.play_arrow, color: Color(0xFF4CAF50)),
+              Icon(Icons.play_arrow, color: AppColors.primaryDarkBlue),
               SizedBox(width: 8),
               Text('Iniciar Escala'),
             ],
@@ -134,8 +135,8 @@ class _EscalaDetailsScreenState extends State<EscalaDetailsScreen> {
                 _iniciarEscala();
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF4CAF50),
-                foregroundColor: Colors.white,
+                backgroundColor: AppColors.primaryDarkBlue,
+                foregroundColor: AppColors.textOnDark,
               ),
               child: const Text('Iniciar'),
             ),
@@ -148,17 +149,17 @@ class _EscalaDetailsScreenState extends State<EscalaDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.cardBackground,
       appBar: AppBar(
         title: const Text(
           'Detalhes da Escala',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: AppColors.textOnDark,
           ),
         ),
-        backgroundColor: const Color(0xFF1E3A8A),
-        foregroundColor: Colors.white,
+        backgroundColor: AppColors.primaryDarkBlue,
+        foregroundColor: AppColors.textOnDark,
         elevation: 2,
         centerTitle: true,
       ),
@@ -217,7 +218,7 @@ class _EscalaDetailsScreenState extends State<EscalaDetailsScreen> {
               children: [
                 Icon(
                   Icons.route,
-                  color: const Color(0xFF1E3A8A),
+                  color: AppColors.primaryDarkBlue,
                   size: context.isTablet ? 28 : 24,
                 ),
                 SizedBox(width: context.horizontalPadding * 0.5),
@@ -227,7 +228,7 @@ class _EscalaDetailsScreenState extends State<EscalaDetailsScreen> {
                     style: TextStyle(
                       fontSize: context.fontSize(context.isTablet ? 20 : 18),
                       fontWeight: FontWeight.bold,
-                      color: const Color(0xFF1E3A8A),
+                      color: AppColors.primaryDarkBlue,
                     ),
                   ),
                 ),
@@ -259,7 +260,7 @@ class _EscalaDetailsScreenState extends State<EscalaDetailsScreen> {
           Icon(
             icon,
             size: context.isTablet ? 20 : 18,
-            color: Colors.grey[600],
+            color: AppColors.surfaceDark,
           ),
           SizedBox(width: context.horizontalPadding * 0.5),
           Expanded(
@@ -268,7 +269,7 @@ class _EscalaDetailsScreenState extends State<EscalaDetailsScreen> {
               label,
               style: TextStyle(
                 fontSize: context.fontSize(context.isTablet ? 14 : 13),
-                color: Colors.grey[600],
+                color: AppColors.surfaceDark,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -279,7 +280,7 @@ class _EscalaDetailsScreenState extends State<EscalaDetailsScreen> {
               value,
               style: TextStyle(
                 fontSize: context.fontSize(context.isTablet ? 14 : 13),
-                color: statusColor ?? Colors.black87,
+                color: statusColor ?? AppColors.textPrimary,
                 fontWeight: statusColor != null ? FontWeight.bold : FontWeight.normal,
               ),
             ),
@@ -298,7 +299,7 @@ class _EscalaDetailsScreenState extends State<EscalaDetailsScreen> {
           style: TextStyle(
             fontSize: context.fontSize(context.isTablet ? 18 : 16),
             fontWeight: FontWeight.bold,
-            color: const Color(0xFF1E3A8A),
+            color: AppColors.primaryDarkBlue,
           ),
         ),
         
@@ -309,54 +310,83 @@ class _EscalaDetailsScreenState extends State<EscalaDetailsScreen> {
           shape: RoundedRectangleBorder(
             borderRadius: context.responsiveBorderRadius,
           ),
-          child: ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: _escalaDetalhes.paradas.length,
-            separatorBuilder: (context, index) => const Divider(height: 1),
-            itemBuilder: (context, index) {
-              final parada = _escalaDetalhes.paradas[index];
-              final isFirst = index == 0;
-              final isLast = index == _escalaDetalhes.paradas.length - 1;
-              
-              return ListTile(
-                leading: Container(
-                  width: 32,
-                  height: 32,
-                  decoration: BoxDecoration(
-                    color: isFirst ? const Color(0xFF4CAF50) : 
-                           isLast ? const Color(0xFFF44336) : 
-                           const Color(0xFF2196F3),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: Text(
-                      '${index + 1}',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
+          child: ExpansionTile(
+            leading: Icon(
+              Icons.location_on,
+              color: AppColors.primaryDarkBlue,
+              size: context.isTablet ? 24 : 20,
+            ),
+            title: Text(
+              'Ver ${_escalaDetalhes.paradas.length} paradas',
+              style: TextStyle(
+                fontSize: context.fontSize(context.isTablet ? 16 : 14),
+                fontWeight: FontWeight.w600,
+                color: AppColors.primaryDarkBlue,
+              ),
+            ),
+            subtitle: Text(
+              '${_escalaDetalhes.paradas.first} → ${_escalaDetalhes.paradas.last}',
+              style: TextStyle(
+                fontSize: context.fontSize(context.isTablet ? 13 : 12),
+                color: AppColors.textSecondary,
+              ),
+            ),
+            iconColor: AppColors.primaryDarkBlue,
+            collapsedIconColor: AppColors.primaryDarkBlue,
+            children: [
+              const Divider(height: 1),
+              ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: EdgeInsets.zero,
+                itemCount: _escalaDetalhes.paradas.length,
+                separatorBuilder: (context, index) => const Divider(height: 1, indent: 60),
+                itemBuilder: (context, index) {
+                  final parada = _escalaDetalhes.paradas[index];
+                  final isFirst = index == 0;
+                  final isLast = index == _escalaDetalhes.paradas.length - 1;
+                  
+                  return ListTile(
+                    dense: context.isMobile,
+                    leading: Container(
+                      width: 28,
+                      height: 28,
+                      decoration: BoxDecoration(
+                        color: isFirst ? AppColors.success : 
+                               isLast ? AppColors.error : 
+                               AppColors.primaryLight,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: Text(
+                          '${index + 1}',
+                          style: const TextStyle(
+                            color: AppColors.textOnDark,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                title: Text(
-                  parada,
-                  style: TextStyle(
-                    fontSize: context.fontSize(context.isTablet ? 15 : 14),
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                subtitle: Text(
-                  isFirst ? 'Ponto de partida' : 
-                  isLast ? 'Destino final' : 'Parada intermediária',
-                  style: TextStyle(
-                    fontSize: context.fontSize(12),
-                    color: Colors.grey[600],
-                  ),
-                ),
-              );
-            },
+                    title: Text(
+                      parada,
+                      style: TextStyle(
+                        fontSize: context.fontSize(context.isTablet ? 14 : 13),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    subtitle: Text(
+                      isFirst ? 'Ponto de partida' : 
+                      isLast ? 'Destino final' : 'Parada intermediária',
+                      style: TextStyle(
+                        fontSize: context.fontSize(10),
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
         ),
       ],
@@ -372,7 +402,7 @@ class _EscalaDetailsScreenState extends State<EscalaDetailsScreen> {
           style: TextStyle(
             fontSize: context.fontSize(context.isTablet ? 18 : 16),
             fontWeight: FontWeight.bold,
-            color: const Color(0xFF1E3A8A),
+            color: AppColors.primaryDarkBlue,
           ),
         ),
         
@@ -389,7 +419,7 @@ class _EscalaDetailsScreenState extends State<EscalaDetailsScreen> {
               children: [
                 Icon(
                   Icons.note_alt_outlined,
-                  color: Colors.grey[600],
+                  color: AppColors.surfaceDark,
                   size: context.isTablet ? 24 : 20,
                 ),
                 SizedBox(width: context.horizontalPadding * 0.5),
@@ -432,8 +462,8 @@ class _EscalaDetailsScreenState extends State<EscalaDetailsScreen> {
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF4CAF50),
-                foregroundColor: Colors.white,
+                backgroundColor: AppColors.primaryDarkBlue,
+                foregroundColor: AppColors.textOnDark,
                 shape: RoundedRectangleBorder(
                   borderRadius: context.responsiveBorderRadius,
                 ),
@@ -454,8 +484,8 @@ class _EscalaDetailsScreenState extends State<EscalaDetailsScreen> {
             icon: const Icon(Icons.arrow_back),
             label: const Text('Voltar às Escalas'),
             style: OutlinedButton.styleFrom(
-              foregroundColor: const Color(0xFF1E3A8A),
-              side: const BorderSide(color: Color(0xFF1E3A8A)),
+              foregroundColor: AppColors.primaryDarkBlue,
+              side: BorderSide(color: AppColors.primaryDarkBlue),
               shape: RoundedRectangleBorder(
                 borderRadius: context.responsiveBorderRadius,
               ),
@@ -469,15 +499,15 @@ class _EscalaDetailsScreenState extends State<EscalaDetailsScreen> {
   Color _getStatusColor(String status) {
     switch (status.toLowerCase()) {
       case 'agendado':
-        return const Color(0xFF2196F3);
+        return AppColors.escalaAgendada;
       case 'em andamento':
-        return const Color(0xFF4CAF50);
+        return AppColors.escalaAndamento;
       case 'concluído':
-        return const Color(0xFF9E9E9E);
+        return AppColors.escalaConcluida;
       case 'cancelado':
-        return const Color(0xFFF44336);
+        return AppColors.escalaCancelada;
       default:
-        return Colors.grey;
+        return AppColors.surfaceMedium;
     }
   }
 }

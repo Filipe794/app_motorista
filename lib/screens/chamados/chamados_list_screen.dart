@@ -1,7 +1,7 @@
-import 'package:rota_mais/screens/chamados/criar_chamado_screen.dart';
-import 'package:rota_mais/widgets/card_details.dart';
 import 'package:flutter/material.dart';
-import 'package:rota_mais/utils/responsive_helper.dart';
+import '../../utils/responsive_helper.dart';
+import '../../utils/app_colors.dart';
+import 'criar_chamado_screen.dart';
 
 class ChamadosListScreen extends StatefulWidget {
   const ChamadosListScreen({super.key});
@@ -142,12 +142,13 @@ class _ChamadosListScreenState extends State<ChamadosListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: const BackButton(),
+        backgroundColor: AppColors.primaryDarkBlue,
+        foregroundColor: AppColors.textOnDark,
+        leading: const BackButton(color: AppColors.textOnDark),
         title: Text(
           'Chamados',
           style: TextStyle(
-            color: Colors.black,
+            color: AppColors.textOnDark,
             fontSize: 20,
             fontFamily: 'Plus Jakarta Sans',
             fontWeight: FontWeight.w700,
@@ -232,13 +233,13 @@ class _ChamadosListScreenState extends State<ChamadosListScreen> {
                       children: [
                         const Icon(
                           Icons.refresh,
-                          color: Colors.red,
+                          color: AppColors.error,
                         ),
                         const SizedBox(width: 4),
                         Text(
                           "Resetar Filtro",
                           style: TextStyle(
-                            color: Colors.red,
+                            color: AppColors.error,
                             fontSize: context.fontSize(14),
                             fontWeight: FontWeight.w500,
                           ),
@@ -291,7 +292,7 @@ class _ChamadosListScreenState extends State<ChamadosListScreen> {
                   height: 48,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
+                      backgroundColor: AppColors.success,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),

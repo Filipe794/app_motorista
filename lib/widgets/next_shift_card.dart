@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../utils/responsive_helper.dart';
 import '../screens/escalas/escala_details_screen.dart';
+import '../services/flutter_map_provider.dart';
+import '../services/student_app_data_service.dart';
+import 'flutter_map_widget.dart';
 
 /// Widget de card da próxima escala totalmente responsivo e acessível
 /// 
@@ -113,78 +117,21 @@ class _ResponsiveMapSection extends StatelessWidget {
     final mapHeight = _calculateMapHeight(context);
     
     return Semantics(
-      label: 'Mapa visual da rota da escala',
-      child: Container(
-        height: mapHeight,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: context.responsiveBorderRadius.topLeft,
-            topRight: context.responsiveBorderRadius.topRight,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.1),
-              blurRadius: 8.0,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
+      label: 'Mapa interativo da rota da escala',
+      child: ChangeNotifierProvider(
+        create: (context) => FlutterMapProvider()..setCurrentRoute(StudentAppDataService.getCurrentRoute()),
         child: ClipRRect(
           borderRadius: BorderRadius.only(
             topLeft: context.responsiveBorderRadius.topLeft,
             topRight: context.responsiveBorderRadius.topRight,
           ),
-          child: Image.asset(
-            'assets/images/mapa.png',
-            width: double.infinity,
+          child: FlutterMapWidget(
             height: mapHeight,
-            fit: BoxFit.cover,
-            semanticLabel: 'Mapa da rota Centro - Antenor Viana',
-            errorBuilder: (context, error, stackTrace) {
-              // Fallback em caso de erro ao carregar a imagem
-              return Container(
-                height: mapHeight,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      Color(0xFF81C784),
-                      Color(0xFF4CAF50),
-                    ],
-                  ),
-                ),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.map_outlined,
-                        size: context.isMobile ? 40 : 48,
-                        color: Colors.white.withValues(alpha: 0.8),
-                      ),
-                      SizedBox(height: context.verticalSpacing * 0.5),
-                      Text(
-                        'Mapa da Rota',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: context.fontSize(16),
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Text(
-                        'Centro - Antenor Viana',
-                        style: TextStyle(
-                          color: Colors.white.withValues(alpha: 0.9),
-                          fontSize: context.fontSize(12),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
+            showControls: false, // Não mostrar controles no card
+            enableTracking: false, // Não habilitar rastreamento no card
+            onMapReady: () {
+              // Mapa pronto para uso
+              print('Mapa carregado no NextShiftCard');
             },
           ),
         ),

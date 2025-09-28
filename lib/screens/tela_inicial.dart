@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../utils/responsive_helper.dart';
+import '../utils/app_colors.dart';
 import '../widgets/app_header.dart';
 import '../widgets/navigation_grid.dart';
 import '../widgets/next_shift_card.dart';
@@ -91,7 +92,7 @@ class TelaInicial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.cardBackground,
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
@@ -212,7 +213,7 @@ class _ResponsiveMainContent extends StatelessWidget {
                       style: TextStyle(
                         fontSize: context.fontSize(context.isTablet ? 16 : 14),
                         fontWeight: FontWeight.bold,
-                        color: Colors.black87,
+                        color: AppColors.textPrimary,
                       ),
                     ),
                     
@@ -268,7 +269,7 @@ class _ResponsiveMainContent extends StatelessWidget {
             style: TextStyle(
               fontSize: context.fontSize(context.isTablet ? 16 : 14),
               fontWeight: FontWeight.bold,
-              color: Colors.black87,
+              color: AppColors.textPrimary,
             ),
           ),
           
@@ -316,7 +317,7 @@ class _ResponsiveMainContent extends StatelessWidget {
             style: TextStyle(
               fontSize: context.fontSize(context.isTablet ? 16 : 14),
               fontWeight: FontWeight.bold,
-              color: Colors.black87,
+              color: AppColors.textPrimary,
             ),
           ),
           
@@ -361,10 +362,10 @@ class _FutureContentPlaceholder extends StatelessWidget {
       width: double.infinity,
       height: context.responsiveHeight(20),
       decoration: BoxDecoration(
-        color: Colors.grey[50],
+        color: AppColors.backgroundLight,
         borderRadius: context.responsiveBorderRadius,
         border: Border.all(
-          color: Colors.grey[200]!,
+          color: AppColors.surfaceLight,
           width: 1.0,
         ),
       ),
@@ -375,7 +376,7 @@ class _FutureContentPlaceholder extends StatelessWidget {
             Icon(
               Icons.add_circle_outline,
               size: context.isMobile ? 32.0 : 40.0,
-              color: Colors.grey[400],
+              color: AppColors.surfaceMedium,
             ),
             
             SizedBox(height: context.verticalSpacing * 0.5),
@@ -384,7 +385,7 @@ class _FutureContentPlaceholder extends StatelessWidget {
               'Conteúdo adicional',
               style: TextStyle(
                 fontSize: context.fontSize(14),
-                color: Colors.grey[600],
+                color: AppColors.surfaceDark,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -395,7 +396,7 @@ class _FutureContentPlaceholder extends StatelessWidget {
               'Em breve',
               style: TextStyle(
                 fontSize: context.fontSize(12),
-                color: Colors.grey[500],
+                color: AppColors.surfaceMedium,
               ),
             ),
           ],
