@@ -328,8 +328,8 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                   child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Espaçamento responsivo
-                    SizedBox(height: context.verticalSpacing * 3),
+                    // Espaçamento responsivo reduzido
+                    SizedBox(height: context.verticalSpacing * 1.5),
                     
                     // Logo do app
                     Hero(
@@ -359,7 +359,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                       ),
                     ),
                     
-                    SizedBox(height: context.verticalSpacing * 2),
+                    SizedBox(height: context.verticalSpacing * 1.2),
                     
                     // Nome do app
                     Text(
@@ -372,7 +372,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                       ),
                     ),
                     
-                    SizedBox(height: context.verticalSpacing * 0.8),
+                    SizedBox(height: context.verticalSpacing * 0.5),
                     
                     // Subtítulo
                     Text(
@@ -384,7 +384,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                       ),
                     ),
                     
-                    SizedBox(height: context.verticalSpacing * 3),
+                    SizedBox(height: context.verticalSpacing * 2),
                     
                     // Card do formulário
                     Card(
@@ -410,7 +410,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                                   textAlign: TextAlign.center,
                                 ),
                                 
-                                SizedBox(height: context.verticalSpacing * 2.5),
+                                SizedBox(height: context.verticalSpacing * 1.5),
                                 
                                 // Campo CPF
                                 TextFormField(
@@ -489,7 +489,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                                   },
                                 ),
                                 
-                                SizedBox(height: context.verticalSpacing * 1.5),
+                                SizedBox(height: context.verticalSpacing),
                                 
                                 // Checkbox "Lembrar de mim"
                                 Row(
@@ -503,30 +503,33 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                                       },
                                       activeColor: AppColors.primaryDarkBlue,
                                     ),
-                                    const Expanded(
-                                      child: Text(
-                                        'Lembrar de mim',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: AppColors.textSecondary,
-                                        ),
-                                      ),
-                                    ),
-                                    TextButton(
-                                      onPressed: _forgotPassword,
-                                      child: Text(
-                                        'Esqueci a senha',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: AppColors.primaryDarkBlue,
-                                          decoration: TextDecoration.underline,
-                                        ),
+                                    const Text(
+                                      'Lembrar de mim',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: AppColors.textSecondary,
                                       ),
                                     ),
                                   ],
                                 ),
                                 
-                                SizedBox(height: context.verticalSpacing * 2.5),
+                                // Botão "Esqueci a senha" abaixo
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: TextButton(
+                                    onPressed: _forgotPassword,
+                                    child: Text(
+                                      'Esqueci a senha',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: AppColors.primaryDarkBlue,
+                                        decoration: TextDecoration.underline,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                
+                                SizedBox(height: context.verticalSpacing * 1.5),
                                 
                                 // Botão de login
                                 SizedBox(

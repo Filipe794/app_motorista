@@ -1,4 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Permissões de localização necessárias para o app do motorista -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- Permissão para localização em segundo plano (opcional, para quando o app está minimizado) -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <!-- Permissão para internet (necessária para mapas e API) -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    
     <application
         android:label="app_motorista"
         android:name="${applicationName}"
