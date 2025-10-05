@@ -4,8 +4,8 @@
 // TODO: Adicionar configurações de localização
 
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
-import 'package:device_preview/device_preview.dart';
+// import 'package:flutter/foundation.dart'; // Comentado - usado apenas com DevicePreview
+// import 'package:device_preview/device_preview.dart'; // Comentado para execução no celular
 import 'package:provider/provider.dart';
 import 'utils/app_colors.dart';
 import 'screens/splash_screen.dart';
@@ -16,10 +16,11 @@ void main() {
   // TODO: Implementar configurações de crash reporting
   // TODO: Adicionar configurações de analytics
   runApp(
-    DevicePreview(
-      enabled: !kReleaseMode, // Ativo apenas em debug/profile
-      builder: (context) => const MyApp(),
-    ),
+    // DevicePreview(
+    //   enabled: !kReleaseMode, // Ativo apenas em debug/profile
+    //   builder: (context) => const MyApp(),
+    // ),
+    const MyApp(),
   );
 }
 
@@ -36,9 +37,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => FlutterMapProvider()),
       ],
       child: MaterialApp(
-        // Configurações do Device Preview
-        locale: DevicePreview.locale(context),
-        builder: DevicePreview.appBuilder,
+        // Configurações do Device Preview (comentado para execução no celular)
+        // locale: DevicePreview.locale(context),
+        // builder: DevicePreview.appBuilder,
         
         title: 'Rota+ - App Motorista', // TODO: Adicionar localização
         

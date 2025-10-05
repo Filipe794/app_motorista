@@ -341,7 +341,7 @@ class _EscalaAndamentoScreenState extends State<EscalaAndamentoScreen> with Widg
           children: [
             Icon(Icons.check_circle, color: Colors.white),
             SizedBox(width: 12),
-            Text('Localização ativada! Escala iniciada com sucesso.',style: TextStyle(fontSize: 12),),
+            Text('Escala iniciada com sucesso.',style: TextStyle(fontSize: 12),),
           ],
         ),
         backgroundColor: AppColors.primaryDarkBlue,
@@ -513,7 +513,7 @@ class _EscalaAndamentoScreenState extends State<EscalaAndamentoScreen> with Widg
                         children: [
                           Icon(Icons.pause_circle, color: Colors.white),
                           SizedBox(width: 12),
-                          Text('Escala pausada. Você pode retomar quando voltar.'),
+                          Text('Escala pausada.'),
                         ],
                       ),
                       backgroundColor: AppColors.warning,
@@ -1053,6 +1053,8 @@ class _EscalaAndamentoScreenState extends State<EscalaAndamentoScreen> with Widg
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(_escalaAtiva ? 'Escala retomada' : 'Escala pausada'),
+                        backgroundColor: _escalaAtiva ? AppColors.primaryDarkBlue : AppColors.warning,
+                        duration: const Duration(seconds: 2),
                       ),
                     );
                   }
@@ -1157,7 +1159,8 @@ class _EscalaAndamentoScreenState extends State<EscalaAndamentoScreen> with Widg
                 if (mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('Escala finalizada com sucesso! Você pode iniciar uma nova escala.'),
+                      content: Text('Escala finalizada com sucesso!'),
+                      backgroundColor: AppColors.primaryDarkBlue,
                       duration: Duration(seconds: 3),
                     ),
                   );
